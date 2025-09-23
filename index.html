@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Site Maintenance</title>
+  <style>
+    :root {
+      --bg1: #0f172a; /* slate-900 */
+      --bg2: #1e293b; /* slate-800 */
+      --accent: #fbbf24; /* amber-400 */
+      --text: #e2e8f0; /* slate-200 */
+      --muted: #94a3b8; /* slate-400 */
+      --surface: rgba(255,255,255,0.06);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, Noto Sans, "Apple Color Emoji", "Segoe UI Emoji";
+      background: radial-gradient(1200px 800px at 20% -10%, #1f2a44 0%, transparent 60%),
+                  radial-gradient(1000px 600px at 120% 110%, #12203a 0%, transparent 55%),
+                  linear-gradient(135deg, var(--bg1), var(--bg2));
+      color: var(--text);
+      display:flex; align-items:center; justify-content:center;
+      padding:24px;
+    }
+    .card{
+      width: min(720px, 100%);
+      background: var(--surface);
+      border: 1px solid rgba(255,255,255,0.05);
+      backdrop-filter: blur(10px);
+      border-radius: 20px; padding: 32px; box-shadow: 0 10px 30px rgba(0,0,0,.35);
+      text-align:center;
+    }
+    h1{font-size: clamp(28px, 4vw, 42px); margin: 0 0 10px}
+    p{font-size: clamp(14px, 2.2vw, 18px); color: var(--text); opacity:.95; margin: 8px 0}
+    .muted{color: var(--muted)}
+    a{color: var(--accent); text-decoration: none; font-weight: 600}
+    a:hover{text-decoration: underline}
+
+    .lang-switch{
+      display:flex; gap:8px; justify-content:center; align-items:center; margin-bottom:18px; flex-wrap: wrap;
+    }
+    .lang-btn{
+      border: 1px solid rgba(255,255,255,.15);
+      background: rgba(255,255,255,.05);
+      color: var(--text); padding: 8px 12px; border-radius: 999px; cursor: pointer;
+      font-weight:600; letter-spacing:.3px;
+    }
+    .lang-btn[aria-pressed="true"]{
+      background: var(--accent); color: #0b1220; border-color: transparent;
+    }
+    .email-box{
+      margin-top: 18px; padding: 14px 16px; border-radius: 12px; background: rgba(255,255,255,.04); border:1px dashed rgba(255,255,255,.15);
+      display:inline-flex; gap:8px; align-items:center;
+    }
+    .email-badge{font-size:12px; padding:4px 8px; border-radius:999px; border:1px solid rgba(255,255,255,.18); color:var(--muted)}
+    .footer{margin-top:18px; font-size: 12px; color: var(--muted)}
+  </style>
+</head>
+<body>
+  <main class="card" data-email="support@example.com">
+    <div class="lang-switch" role="tablist" aria-label="Language selector">
+      <button class="lang-btn" data-lang="tr" role="tab" aria-pressed="false">TR</button>
+      <button class="lang-btn" data-lang="en" role="tab" aria-pressed="true">EN</button>
+      <button class="lang-btn" data-lang="de" role="tab" aria-pressed="false">DE</button>
+    </div>
+
+    <h1 id="title">We&rsquo;ll be right back</h1>
+    <p id="subtitle" class="muted">Our site is down for scheduled maintenance.</p>
+    <p id="body">We’re performing some upgrades to improve your experience. Thanks for your patience!</p>
+
+    <div class="email-box">
+      <span class="email-badge" id="contactLabel">Contact</span>
+      <a id="emailLink" href="mailto:yudasamuel@proton.me">yudasamuel@proton.me</a>
+    </div>
+
+    <div class="footer" id="footer"></div>
+  </main>
+
+  <script>
+    const DEFAULT_EMAIL = document.querySelector('main.card').dataset.email || 'support@example.com';
+
+    const I18N = {
+      tr: {
+        title: 'Kısa süreli bakım',
+        subtitle: 'Sitemiz planlı bakım nedeniyle geçici olarak kullanılamıyor.',
+        body: 'Daha iyi bir deneyim için bazı güncellemeler yapıyoruz. Anlayışınız için teşekkürler!',
+        contact: 'İletişim',
+        footer: 'Tarayıcı diliniz otomatik algılanır. Aşağıdan dil değiştirebilirsiniz.'
+      },
+      en: {
+        title: 'We\'ll be right back',
+        subtitle: 'Our site is down for scheduled maintenance.',
+        body: 'We\'re making improvements to serve you better. Thanks for your patience!',
+        contact: 'Contact',
+        footer: 'Your browser language is auto-detected. You can switch below.'
+      },
+      de: {
+        title: 'Gleich wieder da',
+        subtitle: 'Unsere Website ist wegen geplanter Wartung vorübergehend nicht verfügbar.',
+        body: 'Wir nehmen Verbesserungen vor, um Ihr Erlebnis zu optimieren. Vielen Dank für Ihre Geduld!',
+        contact: 'Kontakt',
+        footer: 'Ihre Browsersprache wird automatisch erkannt. Sie können unten wechseln.'
+      }
+    };
+
+    const qs = (sel) => document.querySelector(sel);
+    const qsa = (sel) => Array.from(document.querySelectorAll(sel));
+
+    function normalizeLang(lang){
+      if(!lang) return 'en';
+      const short = lang.toLowerCase().slice(0,2);
+      return ['tr','en','de'].includes(short) ? short : 'en';
+    }
+
+    function setLanguage(lang){
+      const dict = I18N[lang] || I18N.en;
+      qs('#title').textContent = dict.title;
+      qs('#subtitle').textContent = dict.subtitle;
+      qs('#body').textContent = dict.body;
+      qs('#contactLabel').textContent = dict.contact;
+      qs('#footer').textContent = dict.footer;
+
+      qsa('.lang-btn').forEach(btn => btn.setAttribute('aria-pressed', String(btn.dataset.lang === lang)));
+      try { localStorage.setItem('maintenance_lang', lang); } catch(e){}
+      const url = new URL(window.location);
+      url.searchParams.set('lang', lang);
+      window.history.replaceState({}, '', url);
+
+      document.documentElement.lang = lang;
+    }
+
+    function setEmail(email){
+      const el = qs('#emailLink');
+      el.textContent = email;
+      el.href = `mailto:${email}`;
+    }
+
+    (function init(){
+      const urlLang = normalizeLang(new URL(window.location).searchParams.get('lang'));
+      const stored = normalizeLang(localStorage.getItem('maintenance_lang'));
+      const browser = normalizeLang(navigator.language || (navigator.languages && navigator.languages[0]));
+      const lang = (['tr','en','de'].includes(urlLang) && urlLang) || stored || browser || 'en';
+      setLanguage(lang);
+      setEmail(DEFAULT_EMAIL);
+    })();
+
+    qsa('.lang-btn').forEach(btn => btn.addEventListener('click', () => setLanguage(btn.dataset.lang)));
+  </script>
+</body>
+</html>
