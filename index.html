@@ -1,152 +1,458 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
+<!doctype html>
+<html lang="tr" x-data="themeManager()" x-bind:class="darkMode ? 'dark' : ''" class="h-full scroll-smooth">
+  <head>
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Site Maintenance</title>
-  <style>
-    :root {
-      --bg1: #0f172a; /* slate-900 */
-      --bg2: #1e293b; /* slate-800 */
-      --accent: #fbbf24; /* amber-400 */
-      --text: #e2e8f0; /* slate-200 */
-      --muted: #94a3b8; /* slate-400 */
-      --surface: rgba(255,255,255,0.06);
+  <title>Yuda – Dijital Çözüm Ortağınız</title>
+  <meta name="description" content="Yuda, dijital dünyada fark yaratan çözümler üretiyoruz. Modern teknolojiler ile işletmenizi geleceğe taşıyoruz.">
+  <meta name="keywords" content="Yuda, dijital çözüm, modern teknoloji, web tasarım, uygulama geliştirme, antalya, muratpaşa">
+  <meta name="author" content="Yuda">
+  <meta name="robots" content="index, follow">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, Noto Sans, "Apple Color Emoji", "Segoe UI Emoji";
-      background: radial-gradient(1200px 800px at 20% -10%, #1f2a44 0%, transparent 60%),
-                  radial-gradient(1000px 600px at 120% 110%, #12203a 0%, transparent 55%),
-                  linear-gradient(135deg, var(--bg1), var(--bg2));
-      color: var(--text);
-      display:flex; align-items:center; justify-content:center;
-      padding:24px;
-    }
-    .card{
-      width: min(720px, 100%);
-      background: var(--surface);
-      border: 1px solid rgba(255,255,255,0.05);
-      backdrop-filter: blur(10px);
-      border-radius: 20px; padding: 32px; box-shadow: 0 10px 30px rgba(0,0,0,.35);
-      text-align:center;
-    }
-    h1{font-size: clamp(28px, 4vw, 42px); margin: 0 0 10px}
-    p{font-size: clamp(14px, 2.2vw, 18px); color: var(--text); opacity:.95; margin: 8px 0}
-    .muted{color: var(--muted)}
-    a{color: var(--accent); text-decoration: none; font-weight: 600}
-    a:hover{text-decoration: underline}
-
-    .lang-switch{
-      display:flex; gap:8px; justify-content:center; align-items:center; margin-bottom:18px; flex-wrap: wrap;
-    }
-    .lang-btn{
-      border: 1px solid rgba(255,255,255,.15);
-      background: rgba(255,255,255,.05);
-      color: var(--text); padding: 8px 12px; border-radius: 999px; cursor: pointer;
-      font-weight:600; letter-spacing:.3px;
-    }
-    .lang-btn[aria-pressed="true"]{
-      background: var(--accent); color: #0b1220; border-color: transparent;
-    }
-    .email-box{
-      margin-top: 18px; padding: 14px 16px; border-radius: 12px; background: rgba(255,255,255,.04); border:1px dashed rgba(255,255,255,.15);
-      display:inline-flex; gap:8px; align-items:center;
-    }
-    .email-badge{font-size:12px; padding:4px 8px; border-radius:999px; border:1px solid rgba(255,255,255,.18); color:var(--muted)}
-    .footer{margin-top:18px; font-size: 12px; color: var(--muted)}
-  </style>
-</head>
-<body>
-  <main class="card" data-email="yudasamuel@proton.me">
-    <div class="lang-switch" role="tablist" aria-label="Language selector">
-      <button class="lang-btn" data-lang="tr" role="tab" aria-pressed="false">TR</button>
-      <button class="lang-btn" data-lang="en" role="tab" aria-pressed="true">EN</button>
-      <button class="lang-btn" data-lang="de" role="tab" aria-pressed="false">DE</button>
-    </div>
-
-    <h1 id="title">We&rsquo;ll be right back</h1>
-    <p id="subtitle" class="muted">Our site is down for scheduled maintenance.</p>
-    <p id="body">We’re performing some upgrades to improve your experience. Thanks for your patience!</p>
-
-    <div class="email-box">
-      <span class="email-badge" id="contactLabel">Contact</span>
-      <a id="emailLink" href="mailto:yudasamuel@proton.me">yudasamuel@proton.me</a>
-    </div>
-
-    <div class="footer" id="footer"></div>
-  </main>
+  </script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
 
   <script>
-    const DEFAULT_EMAIL = document.querySelector('main.card').dataset.email || 'yudasamuel@proton.me';
-
-    const I18N = {
-      tr: {
-        title: 'Kısa süreli bakım',
-        subtitle: 'Sitemiz planlı bakım nedeniyle geçici olarak kullanılamıyor.',
-        body: 'Daha iyi bir deneyim için bazı güncellemeler yapıyoruz. Anlayışınız için teşekkürler!',
-        contact: 'İletişim',
-        footer: 'Tarayıcı diliniz otomatik algılanır. Aşağıdan dil değiştirebilirsiniz.'
-      },
-      en: {
-        title: 'We\'ll be right back',
-        subtitle: 'Our site is down for scheduled maintenance.',
-        body: 'We\'re making improvements to serve you better. Thanks for your patience!',
-        contact: 'Contact',
-        footer: 'Your browser language is auto-detected. You can switch below.'
-      },
-      de: {
-        title: 'Gleich wieder da',
-        subtitle: 'Unsere Website ist wegen geplanter Wartung vorübergehend nicht verfügbar.',
-        body: 'Wir nehmen Verbesserungen vor, um Ihr Erlebnis zu optimieren. Vielen Dank für Ihre Geduld!',
-        contact: 'Kontakt',
-        footer: 'Ihre Browsersprache wird automatisch erkannt. Sie können unten wechseln.'
-      }
-    };
-
-    const qs = (sel) => document.querySelector(sel);
-    const qsa = (sel) => Array.from(document.querySelectorAll(sel));
-
-    function normalizeLang(lang){
-      if(!lang) return 'en';
-      const short = lang.toLowerCase().slice(0,2);
-      return ['tr','en','de'].includes(short) ? short : 'en';
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
     }
-
-    function setLanguage(lang){
-      const dict = I18N[lang] || I18N.en;
-      qs('#title').textContent = dict.title;
-      qs('#subtitle').textContent = dict.subtitle;
-      qs('#body').textContent = dict.body;
-      qs('#contactLabel').textContent = dict.contact;
-      qs('#footer').textContent = dict.footer;
-
-      qsa('.lang-btn').forEach(btn => btn.setAttribute('aria-pressed', String(btn.dataset.lang === lang)));
-      try { localStorage.setItem('maintenance_lang', lang); } catch(e){}
-      const url = new URL(window.location);
-      url.searchParams.set('lang', lang);
-      window.history.replaceState({}, '', url);
-
-      document.documentElement.lang = lang;
-    }
-
-    function setEmail(email){
-      const el = qs('#emailLink');
-      el.textContent = email;
-      el.href = `mailto:${email}`;
-    }
-
-    (function init(){
-      const urlLang = normalizeLang(new URL(window.location).searchParams.get('lang'));
-      const stored = normalizeLang(localStorage.getItem('maintenance_lang'));
-      const browser = normalizeLang(navigator.language || (navigator.languages && navigator.languages[0]));
-      const lang = (['tr','en','de'].includes(urlLang) && urlLang) || stored || browser || 'en';
-      setLanguage(lang);
-      setEmail(DEFAULT_EMAIL);
-    })();
-
-    qsa('.lang-btn').forEach(btn => btn.addEventListener('click', () => setLanguage(btn.dataset.lang)));
   </script>
-</body>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://yuda.dev/#website",
+        "url": "https://yuda.dev/",
+        "name": "Yuda",
+        "description": "Yuda, dijital dünyada fark yaratan çözümler üretiyoruz. Modern teknolojiler ile işletmenizi geleceğe taşıyoruz.",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://yuda.dev/?s={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://yuda.dev/#organization",
+        "name": "Yuda",
+        "url": "https://yuda.dev/",
+        "logo": "https://yuda.dev/logo.png"
+      },
+      {
+        "@type": "Service",
+        "@id": "https://yuda.dev/#service",
+        "serviceType": "Dijital Çözüm",
+        "name": "Yuda",
+        "description": "Yuda, dijital dünyada fark yaratan çözümler üretiyoruz. Modern teknolojiler ile işletmenizi geleceğe taşıyoruz.",
+        "provider": {
+          "@id": "https://yuda.dev/#organization"
+        },
+        "url": "https://yuda.dev/"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://yuda.dev/#breadcrumbs",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "item": {
+              "@id": "https://yuda.dev/",
+              "name": "Main"
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "item": {
+              "@id": "https://yuda.dev/#portfolio",
+              "name": "Portfolio"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  
+  <style>
+    html{scroll-padding-top:76px}
+    [x-cloak]{display:none!important}
+  </style>
+
+</head>
+
+<body class="min-h-full bg-white dark:bg-gray-900 transition-colors duration-300">
+
+  <header id="header"
+    x-bind:class="isScrolled ? 'shadow-sm/60 shadow border-b border-neutral-100 dark:border-neutral-800' : 'border-b border-transparent'"
+    class="fixed top-0 inset-x-0 z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur supports-[backdrop-filter]:bg-white/70 dark:supports-[backdrop-filter]:bg-gray-900/70 transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="flex h-16 items-center justify-between">
+        <a href="#" class="flex items-center gap-3 group">
+          <img src="./logo.png" class="h-10 w-auto">
+        </a>
+
+        <nav class="hidden md:flex items-center gap-1">
+          <a href="#" class="navlink px-3 py-2 rounded-lg relative text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white">Ana Sayfa</a>
+          <a href="#portfolio" class="navlink px-3 py-2 rounded-lg relative text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white">Hizmetler</a>
+          <a href="#footer" class="navlink px-3 py-2 rounded-lg relative text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white">İletişim</a>
+        </nav>
+
+        <div class="flex items-center gap-2">
+          <button @click="toggleTheme()" 
+                  class="p-2 rounded-lg text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors">
+            <i x-show="!darkMode" data-lucide="moon" class="w-5 h-5"></i>
+            <i x-show="darkMode" data-lucide="sun" class="w-5 h-5"></i>
+          </button>
+
+
+          <!---
+          <div class="relative" x-data="{ open:false }" @keydown.escape.window="open=false">
+            <button @click="open = !open" :aria-expanded="open"
+              class="flex items-center gap-2 px-3 py-2 rounded-lg text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-800 ring-1 ring-transparent focus:ring-neutral-200 dark:focus:ring-neutral-700 transition">
+              <i data-lucide="globe" class="w-4 h-4"></i>
+              <span class="text-sm">TR</span>
+              <i data-lucide="chevron-down" class="w-4 h-4 opacity-70"></i>
+            </button>
+
+            <div x-cloak x-show="open" x-transition.origin.top.right @click.outside="open=false"
+              class="absolute right-0 mt-2 w-28 rounded-lg border border-neutral-100 dark:border-neutral-700 bg-white dark:bg-neutral-800 shadow-lg overflow-hidden">
+              <button @click="setLang('TR'); open=false" class="w-full text-left px-4 py-2 text-sm hover:bg-neutral-50 dark:hover:bg-neutral-700 dark:text-white">TR</button>
+              <button @click="setLang('EN'); open=false" class="w-full text-left px-4 py-2 text-sm hover:bg-neutral-50 dark:hover:bg-neutral-700 dark:text-white">EN</button>
+            </div>
+          </div>
+          -->
+
+          <button class="md:hidden p-2 rounded-lg text-neutral-600 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-800" @click="mobileOpen = !mobileOpen" :aria-expanded="mobileOpen">
+            <i data-lucide="menu" class="w-5 h-5"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div x-cloak x-show="mobileOpen" x-transition.origin.top class="md:hidden border-t border-neutral-100 dark:border-neutral-800 bg-white dark:bg-gray-900">
+      <nav class="max-w-7xl mx-auto px-4 sm:px-6 py-3 space-y-1">
+        <a href="#" class="block px-3 py-2 rounded-lg text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-800">Ana Sayfa</a>
+        <a href="#hizmetler" class="block px-3 py-2 rounded-lg text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-800">Hizmetler</a>
+        <a href="#referanslar" class="block px-3 py-2 rounded-lg text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-800">Referanslar</a>
+        <a href="#hakkimizda" class="block px-3 py-2 rounded-lg text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-800">Hakkımızda</a>
+        <a href="#iletisim" class="block px-3 py-2 rounded-lg text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-800">İletişim</a>
+      </nav>
+    </div>
+  </header>
+
+  <section id="hero" class="pt-20 min-h-screen flex items-center transition-colors duration-300">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+      <div class="space-y-12">
+
+        <div class="inline-flex items-center gap-3 bg-neutral-100 dark:bg-neutral-800 px-6 py-3 rounded-full border border-neutral-200 dark:border-neutral-700">
+          <span class="w-2 h-2 bg-neutral-500 dark:bg-neutral-400 rounded-full animate-pulse"></span>
+          <span class="text-sm text-neutral-600 dark:text-neutral-300 font-medium">Dijital Çözüm Ortağınız</span>
+        </div>
+
+        <div class="space-y-6">
+          <h1 class="text-6xl lg:text-7xl xl:text-8xl text-neutral-900 dark:text-white leading-tight tracking-tight font-light">
+            Modern <span class="text-neutral-600 dark:text-neutral-400">Yazılım</span><br>
+            ve Tasarım <span class="text-neutral-600 dark:text-neutral-400">Çözümleri</span>
+          </h1>
+
+          <p class="text-xl lg:text-2xl text-neutral-600 dark:text-neutral-300 leading-relaxed max-w-3xl mx-auto font-light">
+            İşletmenizi dijital dünyada öne çıkaracak <span class="text-neutral-900 dark:text-white font-medium">profesyonel web siteleri</span>, 
+            mobil uygulamalar ve <span class="text-neutral-900 dark:text-white font-medium">yaratıcı tasarım çözümleri</span> sunuyoruz.
+          </p>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-6 justify-center">
+          <button class="group bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 px-10 py-5 rounded-2xl hover:bg-neutral-800 dark:hover:bg-neutral-100 transition-all duration-300 flex items-center justify-center gap-3 shadow-lg hover:shadow-xl hover:scale-105 transform">
+            <span class="font-medium text-lg">Projeni Başlat</span>
+            <i data-lucide="arrow-right" class="w-6 h-6 group-hover:translate-x-1 transition-transform"></i>
+          </button>
+
+          <button class="group border-2 border-neutral-300 dark:border-neutral-600 text-neutral-700 dark:text-neutral-300 px-10 py-5 rounded-2xl hover:bg-neutral-50 dark:hover:bg-neutral-800 hover:border-neutral-400 dark:hover:border-neutral-500 transition-all duration-300 flex items-center justify-center gap-3">
+            <i data-lucide="play" class="w-6 h-6 group-hover:scale-110 transition-transform"></i>
+            <span class="font-medium text-lg">Çalışmalarımızı İzle</span>
+          </button>
+        </div>
+
+        <div class="flex flex-wrap justify-center gap-8 lg:gap-12 text-neutral-500 dark:text-neutral-400">
+          <div class="flex items-center gap-3 group">
+            <div class="w-8 h-8 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+              <i data-lucide="check" class="w-4 h-4 text-green-600 dark:text-green-400"></i>
+            </div>
+            <span class="group-hover:text-neutral-700 dark:group-hover:text-neutral-200 transition-colors">7/24 Destek</span>
+          </div>
+          <div class="flex items-center gap-3 group">
+            <div class="w-8 h-8 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+              <i data-lucide="check" class="w-4 h-4 text-blue-600 dark:text-blue-400"></i>
+            </div>
+            <span class="group-hover:text-neutral-700 dark:group-hover:text-neutral-200 transition-colors">Garantili Teslimat</span>
+          </div>
+          <div class="flex items-center gap-3 group">
+            <div class="w-8 h-8 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+              <i data-lucide="check" class="w-4 h-4 text-purple-600 dark:text-purple-400"></i>
+            </div>
+            <span class="group-hover:text-neutral-700 dark:group-hover:text-neutral-200 transition-colors">Ücretsiz Revizyon</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 pt-12 border-t border-neutral-200 dark:border-neutral-700">
+          <div class="text-center group">
+            <div class="text-3xl lg:text-4xl font-light text-neutral-900 dark:text-white mb-2 group-hover:scale-110 transition-transform">15+</div>
+            <div class="text-sm text-neutral-500 dark:text-neutral-400">Aktif Projeler</div>
+          </div>
+          <div class="text-center group">
+            <div class="text-3xl lg:text-4xl font-light text-neutral-900 dark:text-white mb-2 group-hover:scale-110 transition-transform">100+</div>
+            <div class="text-sm text-neutral-500 dark:text-neutral-400">Mutlu Müşteri</div>
+          </div>
+          <div class="text-center group">
+            <div class="text-3xl lg:text-4xl font-light text-neutral-900 dark:text-white mb-2 group-hover:scale-110 transition-transform">5+</div>
+            <div class="text-sm text-neutral-500 dark:text-neutral-400">Yıl Deneyim</div>
+          </div>
+          <div class="text-center group">
+            <div class="text-3xl lg:text-4xl font-light text-neutral-900 dark:text-white mb-2 group-hover:scale-110 transition-transform">24/7</div>
+            <div class="text-sm text-neutral-500 dark:text-neutral-400">Destek</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <section id="portfolio" class="py-20 min-h-screen flex items-center transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full">
+      
+      <div class="text-center space-y-12 mb-20">
+        <div class="inline-flex items-center gap-3 bg-neutral-100 dark:bg-neutral-800 px-6 py-3 rounded-full border border-neutral-200 dark:border-neutral-700">
+          <span class="w-2 h-2 bg-neutral-500 dark:bg-neutral-400 rounded-full animate-pulse"></span>
+          <span class="text-sm text-neutral-600 dark:text-neutral-300 font-medium">Premium Ürünlerimiz</span>
+        </div>
+        
+        <div class="space-y-6">
+          <h2 class="text-6xl lg:text-7xl xl:text-8xl text-neutral-900 dark:text-white leading-tight tracking-tight font-light">
+            Dijital <span class="text-neutral-600 dark:text-neutral-400">Ürünler</span>
+          </h2>
+          
+          <p class="text-xl lg:text-2xl text-neutral-600 dark:text-neutral-300 leading-relaxed max-w-3xl mx-auto font-light">
+            Hazır çözümlerimizle işletmenizi hızla dijitalleştirin. <span class="text-neutral-900 dark:text-white font-medium">Anında kullanıma hazır</span> profesyonel ürünler.
+          </p>
+        </div>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+
+        <div class="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-2 bg-white dark:bg-neutral-800">
+            <div class="aspect-w-16 aspect-h-12">
+                <img class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500" src="./epin.png" alt="modern e-commerce website design with clean layout and product showcase">
+            </div>
+            <div class="p-6 bg-white dark:bg-neutral-800 border-t border-neutral-100 dark:border-neutral-700">
+                <h3 class="text-xl font-bold mb-2 text-neutral-900 dark:text-white">YudaStore - Hesap Satış</h3>
+                <p class="text-neutral-600 dark:text-neutral-400 text-sm">Hesap satış scripti ile müşterilerinize daha modern ve kurumsal bir bakış açısı katın.</p>
+            </div>
+        </div>
+
+        <div class="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-2 bg-white dark:bg-neutral-800">
+            <div class="aspect-w-16 aspect-h-12">
+                <img class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500" src="./proxy.png" alt="modern e-commerce website design with clean layout and product showcase">
+            </div>
+            <div class="p-6 bg-white dark:bg-neutral-800 border-t border-neutral-100 dark:border-neutral-700">
+                <h3 class="text-xl font-bold mb-2 text-neutral-900 dark:text-white">ProxyChain - Reverse Proxy</h3>
+                <p class="text-neutral-600 dark:text-neutral-400 text-sm">Müşterilerinize proxy hizmeti sağlayabildiğiniz bir reverse proxy sistemi.</p>
+            </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <section id="process" class="py-24 transition-colors duration-300">
+    <div class="container mx-auto px-6">  
+        <div class="text-center mb-16">
+            <div class="inline-flex items-center gap-3 bg-white dark:bg-neutral-800 px-6 py-3 rounded-full border border-neutral-200 dark:border-neutral-700 mb-8">
+              <i data-lucide="lightbulb" class="w-5 h-5 text-blue-600 dark:text-blue-400"></i>
+              <span class="text-sm text-neutral-700 dark:text-neutral-300 font-medium">Çalışma Sürecimiz</span>
+            </div>
+            <h2 class="text-4xl md:text-5xl font-light text-neutral-900 dark:text-white mb-6 leading-tight">
+              Profesyonel <span class="text-neutral-600 dark:text-neutral-400">Süreç</span>
+            </h2>
+            <p class="text-xl text-neutral-600 dark:text-neutral-300 max-w-3xl mx-auto font-light leading-relaxed">
+                Projelerinizi baştan sona profesyonel bir süreçle yönetiyoruz. Her adımda şeffaflık ve kalite önceliğimiz.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+            <div class="text-center group">
+                <div class="relative mb-8">
+                    <div class="w-20 h-20 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-all duration-300 shadow-lg">
+                        <span class="text-2xl font-bold text-white">1</span>
+                    </div>
+                </div>
+                <h3 class="text-xl font-semibold text-neutral-900 dark:text-white mb-4">Keşif &amp; Analiz</h3>
+                <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed">İhtiyaçlarınızı analiz ediyor, proje kapsamını belirliyoruz.</p>
+            </div>
+
+            <div class="text-center group">
+                <div class="relative mb-8">
+                    <div class="w-20 h-20 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-all duration-300 shadow-lg">
+                        <span class="text-2xl font-bold text-white">2</span>
+                    </div>
+                </div>
+                <h3 class="text-xl font-semibold text-neutral-900 dark:text-white mb-4">Tasarım &amp; Planlama</h3>
+                <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed">UI/UX tasarımları oluşturuyor, teknik mimarisini planlıyoruz.</p>
+            </div>
+
+            <div class="text-center group">
+                <div class="relative mb-8">
+                    <div class="w-20 h-20 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-all duration-300 shadow-lg">
+                        <span class="text-2xl font-bold text-white">3</span>
+                    </div>
+                </div>
+                <h3 class="text-xl font-semibold text-neutral-900 dark:text-white mb-4">Geliştirme</h3>
+                <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed">Agile metodoloji ile hızlı ve kaliteli geliştirme yapıyoruz.</p>
+            </div>
+
+            <div class="text-center group">
+                <div class="relative mb-8">
+                    <div class="w-20 h-20 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-all duration-300 shadow-lg">
+                        <span class="text-2xl font-bold text-white">4</span>
+                    </div>
+                </div>
+                <h3 class="text-xl font-semibold text-neutral-900 dark:text-white mb-4">Test &amp; Teslim</h3>
+                <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed">Kapsamlı testlerden geçirip, projenizi teslim ediyoruz.</p>
+            </div>
+        </div>
+
+        <div class="bg-white dark:bg-neutral-800 rounded-3xl p-8 lg:p-12 border border-neutral-200 dark:border-neutral-700 shadow-lg">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h3 class="text-3xl font-light text-neutral-900 dark:text-white mb-6">Agile <span class="text-neutral-600 dark:text-neutral-400">Metodoloji</span></h3>
+                    <p class="text-lg text-neutral-600 dark:text-neutral-300 mb-8 leading-relaxed font-light">
+                        Projelerimizde Agile metodolojisini kullanarak, hızlı ve esnek geliştirme süreci sağlıyoruz. 
+                        Düzenli geri bildirimler ve iterasyonlar ile mükemmel sonuçlar elde ediyoruz.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-3 h-3 bg-blue-500 dark:bg-blue-400 rounded-full"></div>
+                            <span class="text-neutral-700 dark:text-neutral-300">2 haftalık sprint döngüleri</span>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-3 h-3 bg-green-500 dark:bg-green-400 rounded-full"></div>
+                            <span class="text-neutral-700 dark:text-neutral-300">Sürekli müşteri geri bildirimi</span>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-3 h-3 bg-purple-500 dark:bg-purple-400 rounded-full"></div>
+                            <span class="text-neutral-700 dark:text-neutral-300">Esnek değişiklik yönetimi</span>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-3 h-3 bg-orange-500 dark:bg-orange-400 rounded-full"></div>
+                            <span class="text-neutral-700 dark:text-neutral-300">Şeffaf proje takibi</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="bg-neutral-100 dark:bg-neutral-700 rounded-2xl p-8 h-80 flex items-center justify-center">
+                        <div class="text-center space-y-4">
+                            <i data-lucide="clipboard-list" class="w-16 h-16 text-neutral-400 dark:text-neutral-500 mx-auto"></i>
+                            <div class="text-neutral-600 dark:text-neutral-400 font-medium">Agile Çalışma Süreci</div>
+                            <div class="text-sm text-neutral-500 dark:text-neutral-500">Sprint Planning & Development</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+  </section>
+  
+  <footer id="footer" class="bg-neutral-900 dark:bg-black text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-16">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        
+        <div class="lg:col-span-2">
+          <div class="flex items-center space-x-3 mb-6">
+            <a href="#" class="text-2xl font-bold">YUDA</a>
+          </div>
+          <p class="text-neutral-400 text-lg leading-relaxed mb-6 max-w-md">
+            Dijital dünyada fark yaratan çözümler üretiyoruz. Modern teknolojiler ile işletmenizi geleceğe taşıyoruz.
+          </p>
+          <div class="flex space-x-4">
+            <a href="https://github.com/yudasamuel"  target="_blank" class="w-10 h-10 bg-neutral-800 hover:bg-neutral-700 rounded-lg flex items-center justify-center transition-colors">
+              <i data-lucide="github" class="w-5 h-5 text-white"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="lg:col-span-2">
+          <h3 class="text-lg font-semibold mb-6">İletişim</h3>
+          <ul class="space-y-4">
+            <li class="flex items-center space-x-3">
+              <i data-lucide="mail" class="w-5 h-5 text-neutral-400 flex-shrink-0"></i>
+              <a href="mailto:contact@yuda.dev" class="text-neutral-400 hover:text-white transition-colors">contact@yuda.dev</a>
+            </li>
+            <li class="flex items-start space-x-3">
+              <i data-lucide="map-pin" class="w-5 h-5 text-neutral-400 flex-shrink-0 mt-0.5"></i>
+              <span class="text-neutral-400 leading-relaxed">Yenigün Mah. Mevlana Cad. B Blok No: 54B İç Kapı No: 203<br/>Muratpaşa / Antalya</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="border-t border-neutral-800 pt-8">
+        <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+          <div class="text-neutral-400 text-sm">
+            © 2025 Yuda.dev. Tüm hakları saklıdır.
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function themeManager() {
+      return {
+        darkMode: false,
+        isScrolled: false,
+        mobileOpen: false,
+        
+        init() {
+          this.darkMode = localStorage.theme === 'dark' ||  (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
+          this.applyTheme();
+          window.addEventListener('scroll', () => {
+            this.isScrolled = window.scrollY > 10;
+          });
+        },
+        
+        toggleTheme() {
+          this.darkMode = !this.darkMode;
+          this.applyTheme();
+        },
+
+        applyTheme() {
+          localStorage.theme = this.darkMode ? 'dark' : 'light';
+          if (this.darkMode) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        }
+      }
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+      lucide.createIcons();
+    });
+  </script>
+
+  </body>
 </html>
