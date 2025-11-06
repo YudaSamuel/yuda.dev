@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="tr" x-data="themeManager()" x-bind:class="darkMode ? 'dark' : ''" class="h-full scroll-smooth">
   <head>
@@ -281,7 +282,7 @@
         </div>
 
 
-          <div class="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-2 bg-white dark:bg-neutral-800">
+        <div class="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-2 bg-white dark:bg-neutral-800">
             <div class="aspect-w-16 aspect-h-12">
                 <img class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500" src="https://yuda.dev/img/shortener.png" alt="modern e-commerce website design with clean layout and product showcase">
             </div>
@@ -296,6 +297,64 @@
     </div>
   </section>
 
+  <section id="references" class="py-24 transition-colors duration-300">
+    <div class="container mx-auto px-6">  
+        <div class="text-center mb-16">
+            <div class="inline-flex items-center gap-3 bg-white dark:bg-neutral-800 px-6 py-3 rounded-full border border-neutral-200 dark:border-neutral-700 mb-8">
+              <i data-lucide="bug" class="w-5 h-5 text-red-600 dark:text-red-400"></i>
+              <span class="text-sm text-neutral-700 dark:text-neutral-300 font-medium">Bug Bounty Referansları</span>
+            </div>
+            <h2 class="text-4xl md:text-5xl font-light text-neutral-900 dark:text-white mb-6 leading-tight">
+              Güvenlik <span class="text-neutral-600 dark:text-neutral-400">Bulguları</span>
+            </h2>
+            <p class="text-xl text-neutral-600 dark:text-neutral-300 max-w-3xl mx-auto font-light leading-relaxed">
+                Bug bounty kapsamında bulduğumuz güvenlik açıklarını; program linki (HOF/Rapor) ya da kısa açıklama olarak burada listeliyoruz.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            <div class="group bg-white dark:bg-neutral-800 rounded-2xl p-8 border border-neutral-200 dark:border-neutral-700 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-16 h-16 bg-gradient-to-r from-red-500 to-red-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                        <img class="w-10 h-10 object-contain" alt="Philips" src="https://www.philips.com/c-etc/philips/clientlibs/foundation-general/clientlibs-css-rb2014/images/generic/philips-footer-logo.svg">
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-neutral-900 dark:text-white">Program / Şirket Adı</h3>
+                        <p class="text-sm text-neutral-500 dark:text-neutral-400">Hedef: philips.com</p>
+                    </div>
+                </div>
+                <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed mb-4">
+                    Bazı subdomainlerde güvenlik açıkları bulundu!
+                </p>
+                <a href="https://www.philips.com/a-w/security/coordinated-vulnerability-disclosure/hall-of-honors.html" target="_blank" class="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium group-hover:gap-3 transition-all">
+                    <span>Rapor / Hall of Honor</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+
+            <div class="group bg-white dark:bg-neutral-800 rounded-2xl p-8 border border-neutral-200 dark:border-neutral-700 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-16 h-16 bg-gradient-to-r from-neutral-700 to-neutral-900 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                      <img class="w-10 h-10 object-contain" alt="Chesscom" src="https://static.wikia.nocookie.net/logopedia/images/f/fe/Chess.com_2012_%28Alt%29.png">
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-neutral-900 dark:text-white">chess.com</h3>
+                        <p class="text-sm text-neutral-500 dark:text-neutral-400">Hedef: chess.com</p>
+                    </div>
+                </div>
+                <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed mb-4">
+                    Stored XSS (kalıcı XSS) zafiyeti üzerinden hesaplara erişim sağlandı.
+                </p>
+                <a href="https://www.youtube.com/watch?v=ikSVujJ8fp0" target="_blank" class="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium group-hover:gap-3 transition-all">
+                    <span>Rapor / Hall of Fame</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+  </section>
 
   <section id="process" class="py-24 transition-colors duration-300">
     <div class="container mx-auto px-6">  
@@ -419,7 +478,7 @@
           <ul class="space-y-4">
             <li class="flex items-center space-x-3">
               <i data-lucide="mail" class="w-5 h-5 text-neutral-400 flex-shrink-0"></i>
-              <a href="mailto:contact@yuda.dev" class="text-neutral-400 hover:text-white transition-colors">contact@yuda.dev</a>
+              <a href="/cdn-cgi/l/email-protection#d6b5b9b8a2b7b5a296afa3b2b7f8b2b3a0" class="text-neutral-400 hover:text-white transition-colors"><span class="__cf_email__" data-cfemail="4b2824253f2a283f0b323e2f2a652f2e3d">[email&#160;protected]</span></a>
             </li>
             <li class="flex items-start space-x-3">
               <i data-lucide="map-pin" class="w-5 h-5 text-neutral-400 flex-shrink-0 mt-0.5"></i>
