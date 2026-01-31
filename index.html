@@ -94,19 +94,19 @@
 
 <body class="min-h-full bg-white dark:bg-gray-900 transition-colors duration-300">
 
-  <header id="header"
+    <header id="header"
     x-bind:class="isScrolled ? 'shadow-sm/60 shadow border-b border-neutral-100 dark:border-neutral-800' : 'border-b border-transparent'"
     class="fixed top-0 inset-x-0 z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur supports-[backdrop-filter]:bg-white/70 dark:supports-[backdrop-filter]:bg-gray-900/70 transition-all">
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
       <div class="flex h-16 items-center justify-between">
-        <a href="#" class="flex items-center gap-3 group">
+        <a href="/" class="flex items-center gap-3 group">
           <img x-show="darkMode" src="https://yuda.dev/img/logo_white.png" class="h-10 w-auto">
           <img x-show="!darkMode" src="https://yuda.dev/img/logo.png" class="h-10 w-auto">
         </a>
 
         <nav class="hidden md:flex items-center gap-1">
-          <a href="#" class="navlink px-3 py-2 rounded-lg relative text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white">Ana Sayfa</a>
-          <a href="#portfolio" class="navlink px-3 py-2 rounded-lg relative text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white">Hizmetler</a>
+          <a href="/" class="navlink px-3 py-2 rounded-lg relative text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white">Ana Sayfa</a>
+          <a href="#terms" class="navlink px-3 py-2 rounded-lg relative text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white">Şartlar</a>
           <a href="#footer" class="navlink px-3 py-2 rounded-lg relative text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white">İletişim</a>
         </nav>
 
@@ -144,8 +144,8 @@
 
     <div x-cloak x-show="mobileOpen" x-transition.origin.top class="md:hidden border-t border-neutral-100 dark:border-neutral-800 bg-white dark:bg-gray-900">
       <nav class="max-w-7xl mx-auto px-4 sm:px-6 py-3 space-y-1">
-        <a href="#" class="block px-3 py-2 rounded-lg text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-800">Ana Sayfa</a>
-        <a href="#portfolio" class="block px-3 py-2 rounded-lg text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-800">Hizmetler</a>
+        <a href="/" class="block px-3 py-2 rounded-lg text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-800">Ana Sayfa</a>
+        <a href="/terms.html" class="block px-3 py-2 rounded-lg text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-800">Şartlar</a>
         <a href="#footer" class="block px-3 py-2 rounded-lg text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-800">İletişim</a>
       </nav>
     </div>
