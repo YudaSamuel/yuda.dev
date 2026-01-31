@@ -1,0 +1,434 @@
+
+<!doctype html>
+<html lang="tr" x-data="themeManager()" x-bind:class="darkMode ? 'dark' : ''" class="h-full scroll-smooth">
+  <head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Yuda – Kullanım Şartları</title>
+  <meta name="description" content="Yuda kullanım şartları, hizmet kapsamı, kullanıcı yükümlülükleri ve sorumluluk sınırları hakkında bilgilendirme.">
+  <meta name="keywords" content="Yuda, kullanım şartları, hizmet şartları, sözleşme, gizlilik, sorumluluk">
+  <meta name="author" content="Yuda">
+  <meta name="robots" content="index, follow">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    }
+  </script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://yuda.dev/#website",
+        "url": "https://yuda.dev/",
+        "name": "Yuda",
+        "description": "Yuda, dijital dünyada fark yaratan çözümler üretiyoruz. Modern teknolojiler ile işletmenizi geleceğe taşıyoruz.",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://yuda.dev/?s={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://yuda.dev/#organization",
+        "name": "Yuda",
+        "url": "https://yuda.dev/",
+        "logo": "https://yuda.dev/img/logo.png"
+      },
+      {
+        "@type": "Service",
+        "@id": "https://yuda.dev/#service",
+        "serviceType": "Dijital Çözüm",
+        "name": "Yuda",
+        "description": "Yuda, dijital dünyada fark yaratan çözümler üretiyoruz. Modern teknolojiler ile işletmenizi geleceğe taşıyoruz.",
+        "provider": {
+          "@id": "https://yuda.dev/#organization"
+        },
+        "url": "https://yuda.dev/"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://yuda.dev/#breadcrumbs",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "item": {
+              "@id": "https://yuda.dev/",
+              "name": "Main"
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "item": {
+              "@id": "https://yuda.dev/#portfolio",
+              "name": "Portfolio"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  
+  <style>
+    html{scroll-padding-top:76px}
+    [x-cloak]{display:none!important}
+  </style>
+
+</head>
+
+<body class="min-h-full bg-white dark:bg-gray-900 transition-colors duration-300">
+
+  <header id="header"
+    x-bind:class="isScrolled ? 'shadow-sm/60 shadow border-b border-neutral-100 dark:border-neutral-800' : 'border-b border-transparent'"
+    class="fixed top-0 inset-x-0 z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur supports-[backdrop-filter]:bg-white/70 dark:supports-[backdrop-filter]:bg-gray-900/70 transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="flex h-16 items-center justify-between">
+        <a href="/" class="flex items-center gap-3 group">
+          <img x-show="darkMode" src="https://yuda.dev/img/logo_white.png" class="h-10 w-auto">
+          <img x-show="!darkMode" src="https://yuda.dev/img/logo.png" class="h-10 w-auto">
+        </a>
+
+        <nav class="hidden md:flex items-center gap-1">
+          <a href="/" class="navlink px-3 py-2 rounded-lg relative text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white">Ana Sayfa</a>
+          <a href="/terms.html" class="navlink px-3 py-2 rounded-lg relative text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white">Şartlar</a>
+          <a href="#footer" class="navlink px-3 py-2 rounded-lg relative text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white">İletişim</a>
+        </nav>
+
+        <div class="flex items-center gap-2">
+          <button @click="toggleTheme()" 
+                  class="p-2 rounded-lg text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors">
+            <i x-show="!darkMode" data-lucide="moon" class="w-5 h-5"></i>
+            <i x-show="darkMode" data-lucide="sun" class="w-5 h-5"></i>
+          </button>
+
+
+          <!---
+          <div class="relative" x-data="{ open:false }" @keydown.escape.window="open=false">
+            <button @click="open = !open" :aria-expanded="open"
+              class="flex items-center gap-2 px-3 py-2 rounded-lg text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-800 ring-1 ring-transparent focus:ring-neutral-200 dark:focus:ring-neutral-700 transition">
+              <i data-lucide="globe" class="w-4 h-4"></i>
+              <span class="text-sm">TR</span>
+              <i data-lucide="chevron-down" class="w-4 h-4 opacity-70"></i>
+            </button>
+
+            <div x-cloak x-show="open" x-transition.origin.top.right @click.outside="open=false"
+              class="absolute right-0 mt-2 w-28 rounded-lg border border-neutral-100 dark:border-neutral-700 bg-white dark:bg-neutral-800 shadow-lg overflow-hidden">
+              <button @click="setLang('TR'); open=false" class="w-full text-left px-4 py-2 text-sm hover:bg-neutral-50 dark:hover:bg-neutral-700 dark:text-white">TR</button>
+              <button @click="setLang('EN'); open=false" class="w-full text-left px-4 py-2 text-sm hover:bg-neutral-50 dark:hover:bg-neutral-700 dark:text-white">EN</button>
+            </div>
+          </div>
+          -->
+
+          <button class="md:hidden p-2 rounded-lg text-neutral-600 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-800" @click="mobileOpen = !mobileOpen" :aria-expanded="mobileOpen">
+            <i data-lucide="menu" class="w-5 h-5"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div x-cloak x-show="mobileOpen" x-transition.origin.top class="md:hidden border-t border-neutral-100 dark:border-neutral-800 bg-white dark:bg-gray-900">
+      <nav class="max-w-7xl mx-auto px-4 sm:px-6 py-3 space-y-1">
+        <a href="/" class="block px-3 py-2 rounded-lg text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-800">Ana Sayfa</a>
+        <a href="/terms.html" class="block px-3 py-2 rounded-lg text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-800">Şartlar</a>
+        <a href="#footer" class="block px-3 py-2 rounded-lg text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-800">İletişim</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="pt-20 transition-colors duration-300">
+    <section id="terms" class="py-16">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6">
+        <div class="text-center space-y-6">
+          <div class="inline-flex items-center gap-3 bg-neutral-100 dark:bg-neutral-800 px-6 py-3 rounded-full border border-neutral-200 dark:border-neutral-700">
+            <i data-lucide="scale" class="w-4 h-4 text-neutral-600 dark:text-neutral-300"></i>
+            <span class="text-sm text-neutral-600 dark:text-neutral-300 font-medium">Kullanım Şartları</span>
+          </div>
+
+          <h1 class="text-4xl md:text-5xl lg:text-6xl text-neutral-900 dark:text-white leading-tight tracking-tight font-light">
+            Yuda <span class="text-neutral-600 dark:text-neutral-400">Hizmet Şartları</span>
+          </h1>
+
+          <p class="text-lg md:text-xl text-neutral-600 dark:text-neutral-300 leading-relaxed max-w-3xl mx-auto font-light">
+            Bu sayfa, Yuda tarafından sunulan hizmetlerin kullanım koşullarını, hak ve yükümlülükleri açıklar.
+            Hizmetlerimizi kullanarak bu şartları kabul etmiş sayılırsınız.
+          </p>
+
+          <div class="inline-flex items-center gap-3 bg-white dark:bg-neutral-800 px-5 py-3 rounded-full border border-neutral-200 dark:border-neutral-700">
+            <i data-lucide="calendar" class="w-4 h-4 text-neutral-600 dark:text-neutral-300"></i>
+            <span class="text-sm text-neutral-600 dark:text-neutral-300">Son güncelleme:</span>
+            <time datetime="2026-01-31" class="text-sm font-medium text-neutral-900 dark:text-white">31 Ocak 2026</time>
+          </div>
+        </div>
+
+        <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="bg-white dark:bg-neutral-800 rounded-2xl p-6 border border-neutral-200 dark:border-neutral-700 shadow-lg">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-xl bg-neutral-100 dark:bg-neutral-700 flex items-center justify-center">
+                <i data-lucide="file-text" class="w-5 h-5 text-neutral-600 dark:text-neutral-300"></i>
+              </div>
+              <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Kapsam</h2>
+            </div>
+            <p class="text-neutral-600 dark:text-neutral-300 text-sm leading-relaxed">
+              Şartlar, Yuda web sitesi ve sunduğumuz dijital hizmetlerin tamamını kapsar.
+            </p>
+          </div>
+
+          <div class="bg-white dark:bg-neutral-800 rounded-2xl p-6 border border-neutral-200 dark:border-neutral-700 shadow-lg">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-xl bg-neutral-100 dark:bg-neutral-700 flex items-center justify-center">
+                <i data-lucide="shield" class="w-5 h-5 text-neutral-600 dark:text-neutral-300"></i>
+              </div>
+              <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">Sorumluluk</h2>
+            </div>
+            <p class="text-neutral-600 dark:text-neutral-300 text-sm leading-relaxed">
+              Hizmet kullanımında yasal sorumluluklar ve sınırlamalar bu metinde açıklanır.
+            </p>
+          </div>
+
+          <div class="bg-white dark:bg-neutral-800 rounded-2xl p-6 border border-neutral-200 dark:border-neutral-700 shadow-lg">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-xl bg-neutral-100 dark:bg-neutral-700 flex items-center justify-center">
+                <i data-lucide="mail" class="w-5 h-5 text-neutral-600 dark:text-neutral-300"></i>
+              </div>
+              <h2 class="text-lg font-semibold text-neutral-900 dark:text-white">İletişim</h2>
+            </div>
+            <p class="text-neutral-600 dark:text-neutral-300 text-sm leading-relaxed">
+              Şartlar hakkında sorularınız için bizimle iletişime geçebilirsiniz.
+            </p>
+          </div>
+        </div>
+
+        <div class="mt-12 space-y-6">
+          <article class="bg-white dark:bg-neutral-800 rounded-3xl p-8 border border-neutral-200 dark:border-neutral-700 shadow-lg">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-xl bg-neutral-100 dark:bg-neutral-700 flex items-center justify-center">
+                <i data-lucide="book-open" class="w-5 h-5 text-neutral-600 dark:text-neutral-300"></i>
+              </div>
+              <h2 class="text-xl font-semibold text-neutral-900 dark:text-white">1. Tanımlar ve Kapsam</h2>
+            </div>
+            <p class="text-neutral-600 dark:text-neutral-300 leading-relaxed">
+              Bu şartlar, Yuda tarafından sağlanan tüm web, yazılım ve tasarım hizmetlerinin kullanımına ilişkindir.
+              Kullanıcı; ziyaretçi, müşteri ve iş ortaklarını kapsar.
+            </p>
+          </article>
+
+          <article class="bg-white dark:bg-neutral-800 rounded-3xl p-8 border border-neutral-200 dark:border-neutral-700 shadow-lg">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-xl bg-neutral-100 dark:bg-neutral-700 flex items-center justify-center">
+                <i data-lucide="settings" class="w-5 h-5 text-neutral-600 dark:text-neutral-300"></i>
+              </div>
+              <h2 class="text-xl font-semibold text-neutral-900 dark:text-white">2. Hizmetler ve Kullanım</h2>
+            </div>
+            <p class="text-neutral-600 dark:text-neutral-300 leading-relaxed">
+              Hizmetler, duyurulan özelliklere ve teknik gereksinimlere göre sunulur. Yuda, hizmetleri iyileştirmek
+              veya güvenlik gerekçeleriyle güncellemek için değişiklik yapabilir.
+            </p>
+            <ul class="mt-4 space-y-2 text-neutral-600 dark:text-neutral-300">
+              <li class="flex items-start gap-3">
+                <span class="mt-2 h-1.5 w-1.5 rounded-full bg-neutral-400"></span>
+                <span>Hizmetlerin amacı dışında kullanımı yasaktır.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-2 h-1.5 w-1.5 rounded-full bg-neutral-400"></span>
+                <span>Teknik bakım veya güncellemeler sırasında geçici kesintiler olabilir.</span>
+              </li>
+            </ul>
+          </article>
+
+          <article class="bg-white dark:bg-neutral-800 rounded-3xl p-8 border border-neutral-200 dark:border-neutral-700 shadow-lg">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-xl bg-neutral-100 dark:bg-neutral-700 flex items-center justify-center">
+                <i data-lucide="user-check" class="w-5 h-5 text-neutral-600 dark:text-neutral-300"></i>
+              </div>
+              <h2 class="text-xl font-semibold text-neutral-900 dark:text-white">3. Kullanıcı Yükümlülükleri</h2>
+            </div>
+            <p class="text-neutral-600 dark:text-neutral-300 leading-relaxed">
+              Kullanıcılar, yürürlükteki yasalara ve bu şartlara uygun hareket etmekle yükümlüdür.
+              Hesap veya iletişim bilgilerinin doğruluğu kullanıcı sorumluluğundadır.
+            </p>
+            <ul class="mt-4 space-y-2 text-neutral-600 dark:text-neutral-300">
+              <li class="flex items-start gap-3">
+                <span class="mt-2 h-1.5 w-1.5 rounded-full bg-neutral-400"></span>
+                <span>Hukuka aykırı içerik yüklenemez veya paylaşılmaz.</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="mt-2 h-1.5 w-1.5 rounded-full bg-neutral-400"></span>
+                <span>Yetkisiz erişim girişimleri ve sistemleri zorlama yasaktır.</span>
+              </li>
+            </ul>
+          </article>
+
+          <article class="bg-white dark:bg-neutral-800 rounded-3xl p-8 border border-neutral-200 dark:border-neutral-700 shadow-lg">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-xl bg-neutral-100 dark:bg-neutral-700 flex items-center justify-center">
+                <i data-lucide="copyright" class="w-5 h-5 text-neutral-600 dark:text-neutral-300"></i>
+              </div>
+              <h2 class="text-xl font-semibold text-neutral-900 dark:text-white">4. Fikri Mülkiyet</h2>
+            </div>
+            <p class="text-neutral-600 dark:text-neutral-300 leading-relaxed">
+              Yuda tarafından sağlanan içerikler, tasarımlar ve yazılımlar ilgili fikri mülkiyet haklarıyla korunur.
+              Kullanıcılar bu içerikleri izinsiz çoğaltamaz veya ticari amaçla kullanamaz.
+            </p>
+          </article>
+
+          <article class="bg-white dark:bg-neutral-800 rounded-3xl p-8 border border-neutral-200 dark:border-neutral-700 shadow-lg">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-xl bg-neutral-100 dark:bg-neutral-700 flex items-center justify-center">
+                <i data-lucide="credit-card" class="w-5 h-5 text-neutral-600 dark:text-neutral-300"></i>
+              </div>
+              <h2 class="text-xl font-semibold text-neutral-900 dark:text-white">5. Ücretlendirme ve İade</h2>
+            </div>
+            <p class="text-neutral-600 dark:text-neutral-300 leading-relaxed">
+              Ücretli hizmetlerde fiyatlandırma ve ödeme koşulları teklif veya sözleşmelerde belirtilir.
+              İade koşulları hizmet türüne ve proje kapsamına göre ayrıca düzenlenir.
+            </p>
+          </article>
+
+          <article class="bg-white dark:bg-neutral-800 rounded-3xl p-8 border border-neutral-200 dark:border-neutral-700 shadow-lg">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-xl bg-neutral-100 dark:bg-neutral-700 flex items-center justify-center">
+                <i data-lucide="alert-triangle" class="w-5 h-5 text-neutral-600 dark:text-neutral-300"></i>
+              </div>
+              <h2 class="text-xl font-semibold text-neutral-900 dark:text-white">6. Sorumluluk Sınırı</h2>
+            </div>
+            <p class="text-neutral-600 dark:text-neutral-300 leading-relaxed">
+              Yuda, hizmetlerin kesintisiz ve hatasız olacağını taahhüt etmez. Dolaylı zararlardan veya üçüncü taraf
+              hizmetlerden kaynaklanan kayıplardan sorumluluk kabul edilmez.
+            </p>
+          </article>
+
+          <article class="bg-white dark:bg-neutral-800 rounded-3xl p-8 border border-neutral-200 dark:border-neutral-700 shadow-lg">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-xl bg-neutral-100 dark:bg-neutral-700 flex items-center justify-center">
+                <i data-lucide="lock" class="w-5 h-5 text-neutral-600 dark:text-neutral-300"></i>
+              </div>
+              <h2 class="text-xl font-semibold text-neutral-900 dark:text-white">7. Gizlilik ve Veri Koruma</h2>
+            </div>
+            <p class="text-neutral-600 dark:text-neutral-300 leading-relaxed">
+              Kişisel veriler, yürürlükteki mevzuata uygun şekilde işlenir ve korunur. Gizlilik uygulamaları için ilgili
+              politikalar ve bilgilendirmeler geçerlidir.
+            </p>
+          </article>
+
+          <article class="bg-white dark:bg-neutral-800 rounded-3xl p-8 border border-neutral-200 dark:border-neutral-700 shadow-lg">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-xl bg-neutral-100 dark:bg-neutral-700 flex items-center justify-center">
+                <i data-lucide="refresh-ccw" class="w-5 h-5 text-neutral-600 dark:text-neutral-300"></i>
+              </div>
+              <h2 class="text-xl font-semibold text-neutral-900 dark:text-white">8. Değişiklikler</h2>
+            </div>
+            <p class="text-neutral-600 dark:text-neutral-300 leading-relaxed">
+              Yuda, şartları gerekli gördüğünde güncelleyebilir. Güncellenen şartlar bu sayfada yayımlandığı tarihten
+              itibaren geçerli olur.
+            </p>
+          </article>
+
+          <article class="bg-white dark:bg-neutral-800 rounded-3xl p-8 border border-neutral-200 dark:border-neutral-700 shadow-lg">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 rounded-xl bg-neutral-100 dark:bg-neutral-700 flex items-center justify-center">
+                <i data-lucide="message-circle" class="w-5 h-5 text-neutral-600 dark:text-neutral-300"></i>
+              </div>
+              <h2 class="text-xl font-semibold text-neutral-900 dark:text-white">9. İletişim</h2>
+            </div>
+            <p class="text-neutral-600 dark:text-neutral-300 leading-relaxed">
+              Şartlar hakkında sorularınız için bizimle iletişime geçebilirsiniz. İletişim bilgileri sayfanın altında yer alır.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <footer id="footer" class="bg-neutral-900 dark:bg-black text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-16">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        
+        <div class="lg:col-span-2">
+          <div class="flex items-center space-x-3 mb-6">
+            <a href="#" class="text-2xl font-bold">YUDA</a>
+          </div>
+          <p class="text-neutral-400 text-lg leading-relaxed mb-6 max-w-md">
+            Dijital dünyada fark yaratan çözümler üretiyoruz. Modern teknolojiler ile işletmenizi geleceğe taşıyoruz.
+          </p>
+          <div class="flex space-x-4">
+            <a href="https://github.com/yudasamuel"  target="_blank" class="w-10 h-10 bg-neutral-800 hover:bg-neutral-700 rounded-lg flex items-center justify-center transition-colors">
+              <i data-lucide="github" class="w-5 h-5 text-white"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="lg:col-span-2">
+          <h3 class="text-lg font-semibold mb-6">İletişim</h3>
+          <ul class="space-y-4">
+            <li class="flex items-center space-x-3">
+              <i data-lucide="mail" class="w-5 h-5 text-neutral-400 flex-shrink-0"></i>
+              <a href="mailto:contact@yuda.dev" class="text-neutral-400 hover:text-white transition-colors">contact@yuda.dev</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="border-t border-neutral-800 pt-8">
+        <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+          <div class="text-neutral-400 text-sm">
+            © 2025 Yuda.dev. Tüm hakları saklıdır.
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function themeManager() {
+      return {
+        darkMode: false,
+        isScrolled: false,
+        mobileOpen: false,
+        
+        init() {
+          this.darkMode = localStorage.theme === 'dark' ||  (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
+          this.applyTheme();
+          window.addEventListener('scroll', () => {
+            this.isScrolled = window.scrollY > 10;
+          });
+        },
+        
+        toggleTheme() {
+          this.darkMode = !this.darkMode;
+          this.applyTheme();
+        },
+
+        applyTheme() {
+          localStorage.theme = this.darkMode ? 'dark' : 'light';
+          if (this.darkMode) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        }
+      }
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+      lucide.createIcons();
+    });
+  </script>
+
+  </body>
+</html>
