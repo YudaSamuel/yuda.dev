@@ -80,7 +80,7 @@ export default defineNuxtConfig({
   nitro: {
     prerender: {
       crawlLinks: true,
-      routes: ['/'],
+      routes: ['/', '/blog/rss.xml'],
       failOnError: false, // TEMP until Task 9 adds all nav pages
     },
   },

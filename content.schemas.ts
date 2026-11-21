@@ -53,6 +53,8 @@ export const schemas = {
     relatedServices: z.array(z.string()).default([]),
     relatedProducts: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
+    // Filled by @nuxt/content with the raw markdown (used for reading time).
+    rawbody: z.string().optional(),
   }),
   legal: z.object({
     title,
