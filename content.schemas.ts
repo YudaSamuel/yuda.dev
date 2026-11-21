@@ -45,6 +45,8 @@ export const schemas = {
     description,
     date: isoDay,
     updated: isoDay.optional(),
+    // Main search query this post targets; unique across posts (tests/unit/blog-quality.test.ts).
+    keyword: z.string().min(3),
     category: z.enum(['isletmeler-icin', 'gelistiriciler-icin']),
     tags: z.array(z.string()).default([]),
     cover: z.string().min(1),

@@ -11,7 +11,7 @@
 | 3 | Google Search Console: alan adını doğrula, sitemap gönder | 👤 | `https://yuda.dev/sitemap.xml` |
 | 4 | Google İşletme Profili: hizmet bölgesi işletmesi (Antalya + ilçeler, il/ülke değil), video doğrulama | 👤 | Ad/telefon sitedekiyle birebir |
 | 5 | Bing Webmaster + IndexNow | 👤🤖 | claude-seo `seo-bing` ile |
-| 6 | İçerik kalite bekçileri: `keyword` alanı + benzersizlik, min. 700 kelime, zorunlu pillar linki | 🤖 | Test ile zorunlu |
+| 6 | İçerik kalite bekçileri: `keyword` alanı + benzersizlik, min. 600 kelime, zorunlu pillar linki | 🤖 | Test ile zorunlu |
 | 7 | `ProfessionalService.hasOfferCatalog` ve yazar `Person`+`sameAs` schema | 🤖 | |
 | 8 | Hakkımızda: gerçek ad, fotoğraf, deneyim, GitHub/LinkedIn | 👤🤖 | E-E-A-T |
 | 9 | Takvimin 1–12. yazıları | 🤖 + 👤 deneyim notu | Haftalık PR |

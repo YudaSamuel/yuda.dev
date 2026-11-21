@@ -34,7 +34,7 @@ Mevcut yapı korunur; ajans şablonundaki **sektör** ve **vaka** katmanları ek
 | Hizmet sayfası | 800 | %100 |
 | Sektör sayfası | 800 | %100: sektörün kendi sorunları, örnekleri |
 | Vaka çalışması | 1.000 | %100: ölçülebilir sonuç |
-| Blog yazısı | 700 | %100 |
+| Blog yazısı | 600 | %100 |
 
 Lokasyon sayfası açılırsa: 30'da uyarı, 50'de dur. **Plan: 0 lokasyon sayfası.**
 

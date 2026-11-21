@@ -2,6 +2,7 @@
 title: "Google İşletme Profili Nasıl Açılır? Antalya Rehberi"
 description: "Antalya'daki işletmeniz Google Haritalar'da ve yerel aramalarda görünsün: Google İşletme Profili açma, doğrulama ve öne çıkarma adımları."
 date: "2026-11-21"
+keyword: "google işletme profili nasıl açılır"
 category: "isletmeler-icin"
 tags: ["yerel seo", "google işletme profili", "antalya"]
 cover: "/images/blog/google-isletme-profili-nasil-acilir.webp"

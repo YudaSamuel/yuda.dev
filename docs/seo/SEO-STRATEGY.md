@@ -49,7 +49,7 @@ Hazırlanma: 2026-11-21 · Yöntem: claude-seo `seo-plan` (yerel hizmet + ajans 
 | Core Web Vitals | Mobil Lighthouse 96–98 | Yayın sonrası CrUX/Search Console takibi |
 | Schema | Organization, ProfessionalService, Service, BlogPosting, Product+SoftwareApplication, BreadcrumbList | `hasOfferCatalog` (hizmet listesi), sektör sayfalarında `Service`, vaka sayfalarında `Article` |
 | İç linkleme | Yazı → hizmet zorunlu değil | İçerik testine "en az 1 hizmet linki" kuralı |
-| Kalite bekçileri | Başlık/açıklama uzunluğu, şema | `keyword` alanı + benzersizlik testi, min. 700 kelime |
+| Kalite bekçileri | Başlık/açıklama uzunluğu, şema | `keyword` alanı + benzersizlik testi, min. 600 kelime |
 | AI arama (GEO) | OAI-SearchBot/PerplexityBot izinli | SSS bölümleri, alıntılanabilir net tanımlar, "best of" listelerine giriş |
 | Yerel | Hizmet bölgesi schema | Google İşletme Profili, NAP tutarlılığı, dizin kayıtları |
 
@@ -73,7 +73,7 @@ Hedefler tahmindir; anahtar kelime hacmi verisi (Keyword Planner veya DataForSEO
 
 | Risk | Önlem |
 |---|---|
-| Hacimli/ince içerikten spam algısı | Haftada 3 yazı, min. 700 kelime, deneyim katkısı, PR ile insan onayı |
+| Hacimli/ince içerikten spam algısı | Haftada 3 yazı, min. 600 kelime, deneyim katkısı, PR ile insan onayı |
 | Anahtar kelime yamyamlığı | Takvimde tek kelime = tek sayfa; test ile zorunlu |
 | Yerel sinyal eksikliği | GBP + yorum + dizin kayıtları 1. ayda |
 | Kanıt eksikliği (vaka yok) | İlk 3 müşteri projesinden izinli vaka çalışması |

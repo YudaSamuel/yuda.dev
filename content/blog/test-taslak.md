@@ -2,6 +2,7 @@
 title: "Taslak Test Yazısı"
 description: "Bu yazı taslak (draft) özelliğini test etmek için vardır. draft: true olduğu için tarihi geçmiş olsa bile hiçbir zaman yayınlanmaz."
 date: "2026-01-01"
+keyword: "test taslak yazı"
 category: "isletmeler-icin"
 tags: ["test"]
 cover: "/images/blog/test-planlanmis.webp"

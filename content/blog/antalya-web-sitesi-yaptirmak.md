@@ -2,6 +2,7 @@
 title: "Antalya'da Web Sitesi Yaptırmak: 2026 Rehberi"
 description: "Antalya'da web sitesi yaptırmadan önce bilmeniz gerekenler: fiyatı neler belirler, ajans nasıl seçilir, hangi özellikler gerçekten gerekli?"
 date: "2026-11-18"
+keyword: "antalya web sitesi yaptırmak"
 category: "isletmeler-icin"
 tags: ["web tasarım", "antalya", "yerel seo"]
 cover: "/images/blog/antalya-web-sitesi-yaptirmak.webp"
@@ -60,6 +61,29 @@ Antalya'da müşteri arıyorsanız, sitenizin "Antalya" ve hizmet verdiğiniz il
 - Sitenin güvenliği nasıl sağlanıyor?
 
 Özellikle son soru çoğu zaman atlanır. Güncellenmeyen eklentiler ve zayıf parolalar, hacklenen sitelerin en yaygın sebebidir.
+
+## 6. Sık yapılan 5 hata
+
+Antalya'daki işletme sitelerinde en sık karşılaştığımız hatalar şunlar:
+
+1. **Alan adını ajansın adına almak.** Alan adı ve barındırma hesabı mutlaka işletmenin kendi adına olmalı. Aksi halde ajansla yollarınız ayrıldığında sitenize ulaşamayabilirsiniz.
+2. **Sezona yetişmeye çalışmak.** Turizm sezonu başlamadan iki hafta önce site yaptırmak; hem acele işe hem de Google'ın siteyi tanıması için zaman kalmamasına yol açar. Kış aylarında başlamak en iyisidir.
+3. **Sadece tasarıma odaklanmak.** Güzel ama yavaş açılan, telefon numarası bulunamayan bir site müşteri getirmez. Tasarımdan önce "ziyaretçi ne yapmalı?" sorusunu cevaplayın.
+4. **Tek dilde bırakmak.** Yabancı misafir ağırlayan bir otel, klinik ya da tur şirketi için Türkçe tek dil yetmez; en azından İngilizce, hedef pazarınıza göre Rusça veya Almanca sürüm planlayın.
+5. **Yayına alıp unutmak.** Site yayına girdiğinde iş bitmez. Güncel olmayan fiyatlar, kapanmış kampanyalar ve bozuk linkler güveni azaltır; güncellenmeyen yazılım ise güvenlik riski oluşturur.
+
+## 7. Süreç ne kadar sürer?
+
+Kurumsal bir tanıtım sitesi için tipik süreç şöyle ilerler:
+
+| Aşama | Süre | Sizden beklenen |
+|---|---|---|
+| Keşif görüşmesi ve teklif | 2–3 gün | Hedefleriniz, örnek beğendiğiniz siteler |
+| Tasarım | 1 hafta | Ana sayfa ve bir iç sayfa tasarımına geri bildirim |
+| İçerik ve geliştirme | 1–2 hafta | Metinler, fotoğraflar, iletişim bilgileri |
+| Test ve yayın | 2–3 gün | Son kontrol ve onay |
+
+En sık gecikme sebebi içeriklerin hazır olmamasıdır. Fotoğraf ve metinleri erken toparlamak süreci belirgin şekilde hızlandırır.
 
 ## Sonuç
 
