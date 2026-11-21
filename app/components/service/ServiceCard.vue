@@ -1,20 +1,21 @@
 <script setup lang="ts">
-defineProps<{ service: { path: string; navTitle: string; summary: string; icon: string } }>()
+defineProps<{ service: { path: string; navTitle: string; summary: string; icon: string }; featured?: boolean }>()
 </script>
 
 <template>
   <NuxtLink
     :to="service.path"
-    class="group flex h-full flex-col rounded-2xl border border-border bg-card p-6 transition-colors duration-200 hover:border-brand"
+    class="card-lift group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card p-6 sm:p-7"
+    :class="featured ? 'lg:p-9' : ''"
   >
-    <span class="inline-flex size-11 items-center justify-center rounded-xl bg-brand-soft text-brand">
-      <Icon :name="service.icon" class="size-5" aria-hidden="true" />
-    </span>
-    <h3 class="mt-5 text-lg font-semibold text-fg">{{ service.navTitle }}</h3>
+    <div class="flex items-start justify-between">
+      <span class="inline-flex size-12 items-center justify-center rounded-xl bg-brand-soft text-brand transition-transform duration-300 group-hover:scale-110">
+        <Icon :name="service.icon" class="size-6" aria-hidden="true" />
+      </span>
+      <Icon name="lucide:arrow-up-right" class="size-5 text-fg-muted transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-brand" aria-hidden="true" />
+    </div>
+    <h3 class="mt-6 font-display font-semibold text-fg" :class="featured ? 'text-2xl' : 'text-xl'">{{ service.navTitle }}</h3>
     <p class="mt-2 flex-1 leading-relaxed text-fg-muted">{{ service.summary }}</p>
-    <span class="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-brand">
-      Detaylı bilgi
-      <Icon name="lucide:arrow-right" class="size-4 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
-    </span>
+    <span class="mt-6 text-sm font-medium text-brand">Detaylı bilgi</span>
   </NuxtLink>
 </template>

@@ -145,6 +145,18 @@ Kullanıcı düzenli (günlük hedefli) yazı paylaşmak istiyor. Bunu yükü az
 - Animasyonlar hafif: CSS ve `prefers-reduced-motion` desteğiyle.
 - **Uygulamanın ilk adımı:** ana sayfa ve bir hizmet sayfası için görsel mockup hazırlanıp kullanıcıya gösterilir, onay alınmadan tüm sayfalara yayılmaz.
 
+### 7.7.1 Tasarım revizyonu (kullanıcı kuralları, 2026-11-21)
+
+İlk görsel onayda kullanıcı minimal teal tasarımı reddetti ("çok kötü") ve şu kuralları verdi. Mimari, içerik ve SEO altyapısı **değişmeden** yalnızca tasarım katmanı yenilenir:
+
+1. **Scroll hikâye akışı:** Kaydırdıkça aşamalı beliren bölümler, sayfa üstünde ilerleme göstergesi, hizmet kartlarında akıcı geçişler ve yazılım mimarisi/teslimat sürecini anlatan interaktif (sticky diyagram + adımlar) scroll akışı.
+2. **Performans:** Animasyonlarda yalnızca `transform` ve `opacity`. İlk ekran (hero) animasyon beklemeden görünür. Animasyon kütüphanesi yok (IntersectionObserver + CSS). `prefers-reduced-motion` desteklenir. JS kapalıyken tüm içerik görünür.
+3. **Ana sayfa sırası:** Hero (değer önerisi + Antalya + Teklif CTA) → Hizmetler → Çalışma süreci (scroll hikâyesi) → Antalya'daki işletmelere çözümler (sektörler) → Neden Yuda / güvenlik kanıtı → Hazır ürünler → Blog → SSS → Teklif/iletişim. Tek H1, düzenli H2/H3.
+4. **Structured data:** Organization + ProfessionalService (LocalBusiness) site genelinde. Ürün sayfalarında `Product` + `SoftwareApplication` çoklu tip (Task 7).
+5. **Görseller:** `./photos` yok, bu yüzden temiz SVG diyagramlar ve hafif animasyonlu öğeler kullanılır. Eklenmesi gereken gerçek görseller README'de listelenir.
+
+**Görsel yön [benim kararım]:** Marka rengi logodaki kırmızı (`#ff3131`). Metin ve buton için erişilebilir koyu tonu kullanılır. Nötrler zinc (siyah/beyaz logoyla uyumlu). Daha karakterli bir "teknik" görünüm: ince ızgara arka plan, `</>` motifi, büyük display tipografi, bento kartlar. Logo PNG yerine tema rengine uyan inline SVG wordmark (`</ YUDA >`) olur. Eski PNG'ler `/img/` altında korunur.
+
 ### 7.8 Deploy [benim kararım]
 
 - GitHub Actions: push to `main` + günlük zamanlanmış build → `nuxt generate` → GitHub Pages'e deploy (`actions/deploy-pages`). Özel alan adı `yuda.dev` (CNAME).

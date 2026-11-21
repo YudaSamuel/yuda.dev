@@ -38,8 +38,9 @@ export default defineNuxtConfig({
       ],
       script: [
         {
-          // Runs before first paint so dark mode never flashes white.
-          innerHTML: `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('dark')}catch(e){}})()`,
+          // Runs before first paint: marks JS as available (enables scroll reveals)
+          // and applies dark mode so it never flashes white.
+          innerHTML: `(function(){document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('dark')}catch(e){}})()`,
           tagPriority: 'critical',
           tagPosition: 'head',
         },

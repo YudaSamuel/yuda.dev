@@ -11,5 +11,12 @@ useSchemaOrg([businessSchema(yuda.business)])
   <div>
     <HomeHero />
     <HomeServices />
+    <HomeProcess />
+    <HomeSolutions />
+    <HomeWhy />
+    <HomeProducts />
+    <HomeLatestPosts />
+    <HomeFaq />
+    <HomeQuote />
   </div>
 </template>

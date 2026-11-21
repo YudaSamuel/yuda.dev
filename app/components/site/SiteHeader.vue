@@ -18,9 +18,8 @@ watch(() => route.path, () => {
   <header class="sticky top-0 z-50 border-b border-border bg-bg/85 backdrop-blur supports-[backdrop-filter]:bg-bg/70">
     <UiContainer>
       <div class="flex h-16 items-center justify-between gap-4">
-        <NuxtLink to="/" class="flex items-center" aria-label="Yuda ana sayfa">
-          <img src="/images/logo.webp" alt="Yuda" width="132" height="32" class="h-8 w-auto dark:hidden">
-          <img src="/images/logo-white.webp" alt="Yuda" width="132" height="32" class="hidden h-8 w-auto dark:block">
+        <NuxtLink to="/" class="flex items-center text-fg" aria-label="Yuda ana sayfa">
+          <SiteLogo />
         </NuxtLink>
 
         <nav aria-label="Ana menü" class="hidden items-center gap-1 lg:flex">

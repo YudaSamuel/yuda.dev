@@ -7,12 +7,11 @@ const tel = computed(() => yuda.business.phone.replace(/[^\d+]/g, ''))
 </script>
 
 <template>
-  <footer class="mt-24 border-t border-border bg-bg-subtle">
+  <footer class="border-t border-border bg-bg-subtle">
     <UiContainer>
       <div class="grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-4">
         <div class="lg:col-span-2">
-          <img src="/images/logo.webp" alt="Yuda" width="132" height="32" class="h-8 w-auto dark:hidden" loading="lazy">
-          <img src="/images/logo-white.webp" alt="Yuda" width="132" height="32" class="hidden h-8 w-auto dark:block" loading="lazy">
+          <NuxtLink to="/" class="inline-flex text-fg" aria-label="Yuda ana sayfa"><SiteLogo /></NuxtLink>
           <p class="mt-4 max-w-sm leading-relaxed text-fg-muted">
             Antalya'da işletmeler için web tasarım, özel yazılım, mobil uygulama ve siber güvenlik hizmetleri.
           </p>
