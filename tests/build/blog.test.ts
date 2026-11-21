@@ -1,5 +1,8 @@
+import { readdirSync, readFileSync } from 'node:fs'
 import { gunzipSync } from 'node:zlib'
+import { parse } from 'yaml'
 import { describe, expect, it } from 'vitest'
+import { isPublished } from '~/utils/publishing'
 import { fileExists, nodesOfType, readFile, readPage } from './helpers'
 
 const LIVE = ['/blog/antalya-web-sitesi-yaptirmak', '/blog/lisans-sistemi-nedir']
@@ -50,7 +53,13 @@ describe('RSS', () => {
     expect(rss).toContain('<language>tr</language>')
   })
   it('has exactly the published items', () => {
-    expect(rss.match(/<item>/g)).toHaveLength(2)
+    // Count posts that should be live right now, so adding articles never breaks this test.
+    const live = readdirSync('content/blog').filter((f) => {
+      const fm = parse(readFileSync(`content/blog/${f}`, 'utf8').match(/^---\r?\n([\s\S]*?)\r?\n---/)![1])
+      return isPublished({ date: fm.date, draft: fm.draft === true })
+    })
+    expect(live.length).toBeGreaterThanOrEqual(2)
+    expect(rss.match(/<item>/g)).toHaveLength(live.length)
     expect(rss).not.toContain('test-planlanmis')
     expect(rss).not.toContain('test-taslak')
   })

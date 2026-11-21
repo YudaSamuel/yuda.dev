@@ -32,6 +32,7 @@ export async function cover(slug, title, eyebrow) {
 mkdirSync('public/images/blog', { recursive: true })
 await cover('antalya-web-sitesi-yaptirmak', "Antalya'da Web Sitesi Yaptırmak: 2026 Rehberi", 'İşletmeler İçin')
 await cover('lisans-sistemi-nedir', 'Yazılım Lisans Sistemi Nedir, Neden Gerekir?', 'Geliştiriciler İçin')
+await cover('google-isletme-profili-nasil-acilir', 'Google İşletme Profili Nasıl Açılır?', 'İşletmeler İçin')
 await cover('test-planlanmis', 'Planlanmış Test Yazısı', 'Test')
 console.log('images done')
 
