@@ -6,6 +6,11 @@ const { data: service } = await useAsyncData(`service-${route.params.slug}`, () 
 if (!service.value) throw createError({ statusCode: 404, statusMessage: 'Sayfa bulunamadı', fatal: true })
 
 const s = service.value
+const slug = String(route.params.slug)
+const { data: related } = await useAsyncData(`service-posts-${slug}`, async () => {
+  const posts = await queryCollection('blog').select('path', 'title', 'description', 'date', 'draft', 'relatedServices').order('date', 'DESC').all()
+  return posts.filter((p) => isPublished(p) && p.relatedServices?.includes(slug)).slice(0, 3)
+})
 usePageSeo({ title: s.title, description: s.description, ogImage: { title: s.h1, subtitle: s.summary } })
 useSchemaOrg([
   businessSchema(yuda.business),
@@ -56,6 +61,20 @@ useSchemaOrg([
       </div>
     </UiContainer>
 
+    <section v-if="related?.length" class="border-t border-border py-20" aria-labelledby="ilgili-baslik">
+      <UiContainer>
+        <h2 id="ilgili-baslik" class="text-3xl font-bold">İlgili yazılar</h2>
+        <ul class="mt-8 grid gap-5 md:grid-cols-3">
+          <li v-for="p in related" :key="p.path">
+            <NuxtLink :to="p.path" class="card-lift block h-full rounded-2xl border border-border bg-card p-6">
+              <h3 class="text-lg font-semibold leading-snug">{{ p.title }}</h3>
+              <p class="mt-2 line-clamp-2 text-sm text-fg-muted">{{ p.description }}</p>
+            </NuxtLink>
+          </li>
+        </ul>
+      </UiContainer>
+    </section>
+
     <section id="sss" class="border-t border-border bg-bg-subtle py-20" aria-labelledby="hizmet-sss-baslik">
       <UiContainer>
         <h2 id="hizmet-sss-baslik" class="text-3xl font-bold">{{ service.navTitle }} hakkında sık sorulanlar</h2>
@@ -69,6 +88,19 @@ useSchemaOrg([
             </summary>
             <p class="pb-6 pr-12 leading-relaxed text-fg-muted">{{ f.a }}</p>
           </details>
+        </div>
+      </UiContainer>
+    </section>
+
+    <section id="teklif" class="py-20" aria-labelledby="hizmet-teklif-baslik">
+      <UiContainer>
+        <div class="grid gap-10 lg:grid-cols-[1fr_1.4fr]">
+          <div>
+            <p class="font-mono text-xs uppercase tracking-[0.18em] text-brand">Teklif</p>
+            <h2 id="hizmet-teklif-baslik" class="mt-3 text-3xl font-bold leading-tight sm:text-4xl">{{ service.navTitle }} için ücretsiz teklif alın</h2>
+            <p class="mt-4 text-lg leading-relaxed text-fg-muted">Formu doldurun, ihtiyacınızı konuşmak için size dönelim. Yazılı ve net bir teklifle ilerleriz.</p>
+          </div>
+          <ServiceQuoteForm :service="service.navTitle" />
         </div>
       </UiContainer>
     </section>
