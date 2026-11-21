@@ -8,7 +8,8 @@ useSchemaOrg([businessSchema(yuda.business)])
 </script>
 
 <template>
-  <main>
-    <h1>Antalya Yazılım ve Web Tasarım</h1>
-  </main>
+  <div>
+    <HomeHero />
+    <HomeServices />
+  </div>
 </template>

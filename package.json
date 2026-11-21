@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "nuxt dev",
     "generate": "nuxt generate",
-    "preview": "nuxt preview",
+    "preview": "node scripts/serve.mjs",
     "postinstall": "nuxt prepare",
     "test": "vitest run --project unit",
     "test:build": "vitest run --project build",

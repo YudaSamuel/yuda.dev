@@ -34,3 +34,20 @@ await cover('antalya-web-sitesi-yaptirmak', "Antalya'da Web Sitesi Yaptırmak: 2
 await cover('lisans-sistemi-nedir', 'Yazılım Lisans Sistemi Nedir, Neden Gerekir?', 'Geliştiriciler İçin')
 await cover('test-planlanmis', 'Planlanmış Test Yazısı', 'Test')
 console.log('images done')
+
+// Logos (2x for h-8 = 32px) and favicons.
+await sharp('public/img/logo.png').resize({ height: 64 }).webp({ quality: 90 }).toFile('public/images/logo.webp')
+await sharp('public/img/logo_white.png').resize({ height: 64 }).webp({ quality: 90 }).toFile('public/images/logo-white.webp')
+const mark = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#0f766e"/><path d="M18 16l14 18 14-18M32 34v16" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>`
+const { writeFileSync } = await import('node:fs')
+writeFileSync('public/favicon.svg', mark)
+await sharp(Buffer.from(mark)).resize(180, 180).png().toFile('public/apple-touch-icon.png')
+const png32 = await sharp(Buffer.from(mark)).resize(32, 32).png().toBuffer()
+// ICO container holding one 32x32 PNG.
+const header = Buffer.alloc(22)
+header.writeUInt16LE(0, 0); header.writeUInt16LE(1, 2); header.writeUInt16LE(1, 4)
+header.writeUInt8(32, 6); header.writeUInt8(32, 7); header.writeUInt8(0, 8); header.writeUInt8(0, 9)
+header.writeUInt16LE(1, 10); header.writeUInt16LE(32, 12)
+header.writeUInt32LE(png32.length, 14); header.writeUInt32LE(22, 18)
+writeFileSync('public/favicon.ico', Buffer.concat([header, png32]))
+console.log('logos + favicons done')
