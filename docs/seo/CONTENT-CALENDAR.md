@@ -24,7 +24,7 @@ Yayın günleri: **Pazartesi, Çarşamba, Cuma**. Site her sabah 06:00'da (TR) d
 |---|---|---|---|---|---|---|
 | 1 | 2026-11-23 Pzt | Bug Bounty Nedir? Philips ve chess.com'da Bulduğumuz Açıklar | bug bounty nedir | B | siber-guvenlik | geliştiriciler |
 | 2 | 2026-11-25 Çar | WordPress Siteniz Hacklendi mi? 7 Belirti ve İlk Yapılacaklar | wordpress hacklendi | T | siber-guvenlik | işletmeler |
-| 3 | 2026-11-27 Cum | Otel Web Sitesiyle Doğrudan Rezervasyon Nasıl Artırılır? | otel web sitesi rezervasyon | T | web-tasarim | işletmeler |
+| 3 | 2026-11-27 Cum | Otel Web Sitesinde Doğrudan Rezervasyon Nasıl Artar? | otel doğrudan rezervasyon | T | web-tasarim | işletmeler |
 | 4 | 2026-11-30 Pzt | Sızma Testi Nedir, Hangi İşletmenin İhtiyacı Var? | sızma testi nedir | K | siber-guvenlik | işletmeler |
 | 5 | 2026-12-02 Çar | Yerel SEO Nedir? Antalya'daki İşletmeler İçin Başlangıç | yerel seo nedir | B | web-tasarim | işletmeler |
 | 6 | 2026-12-04 Cum | Özel Yazılım Fiyatlarını Ne Belirler? | özel yazılım fiyatları | K | yazilim-gelistirme | işletmeler |

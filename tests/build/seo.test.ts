@@ -51,6 +51,19 @@ describe('OG images', () => {
   })
 })
 
+describe('security.txt (RFC 9116)', () => {
+  it('publishes a contact and a future expiry date', () => {
+    const t = readFile('.well-known/security.txt')
+    expect(t).toMatch(/^Contact: mailto:contact@yuda\.dev$/m)
+    expect(t).toMatch(/^Canonical: https:\/\/yuda\.dev\/\.well-known\/security\.txt$/m)
+    const expires = t.match(/^Expires: (.+)$/m)?.[1]
+    expect(expires).toBeTruthy()
+    const ms = new Date(expires!).getTime() - Date.now()
+    expect(ms, 'Expires must be in the future').toBeGreaterThan(30 * 24 * 3600 * 1000)
+    expect(ms, 'RFC 9116: keep Expires within a year').toBeLessThan(366 * 24 * 3600 * 1000)
+  })
+})
+
 describe('robots.txt and sitemap', () => {
   const robots = readFile('robots.txt')
   it('points to the sitemap', () => {
