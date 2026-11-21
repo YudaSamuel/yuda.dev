@@ -30,6 +30,12 @@ describe('filled config: quote form', () => {
   })
 })
 
+describe('filled config: product pages', () => {
+  it('never show the floating WhatsApp button', () => {
+    expect(readPage('/urunler/proxy-chain').querySelectorAll('a[href*="wa.me"]')).toHaveLength(0)
+  })
+})
+
 describe('filled config: phone and WhatsApp', () => {
   const page = readPage('/hizmetler/web-tasarim')
   it('renders WhatsApp and tel links', () => {
