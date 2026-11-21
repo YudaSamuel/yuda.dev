@@ -81,7 +81,7 @@ export default defineNuxtConfig({
     prerender: {
       crawlLinks: true,
       routes: ['/', '/blog/rss.xml'],
-      failOnError: false, // TEMP until Task 9 adds all nav pages
+      failOnError: true,
     },
   },
 })
