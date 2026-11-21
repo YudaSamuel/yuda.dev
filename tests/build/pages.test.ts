@@ -10,7 +10,7 @@ describe('company and legal pages', () => {
     for (const [r, p] of pages) {
       expect(p.querySelectorAll('h1'), r).toHaveLength(1)
       titles.add(p.querySelector('title')!.text)
-      expect(p.querySelector('link[rel="canonical"]')!.getAttribute('href'), r).toBe(`https://yuda.dev${r}`)
+      expect(p.querySelector('link[rel="canonical"]')!.getAttribute('href'), r).toBe(`https://yuda.dev${r}/`)
     }
     expect(titles.size).toBe(ROUTES.length)
   })
@@ -50,6 +50,16 @@ describe('/iletisim', () => {
   })
 })
 
+describe('/iletisim/tesekkurler (no-JS form success)', () => {
+  const page = readPage('/iletisim/tesekkurler')
+  it('confirms the message without needing JS', () => {
+    expect(page.querySelector('h1')!.text).toContain('Teşekkürler')
+  })
+  it('is not indexed', () => {
+    expect(page.querySelector('meta[name="robots"]')?.getAttribute('content')).toContain('noindex')
+  })
+})
+
 describe('/hakkimizda', () => {
   it('emits AboutPage', () => {
     const page = readPage('/hakkimizda')
@@ -62,12 +72,12 @@ describe('404 and legacy URLs', () => {
     expect(fileExists('404.html')).toBe(true)
     const html = readFile('404.html')
     expect(html).toContain('Sayfa bulunamadı')
-    for (const href of ['/hizmetler', '/urunler', '/blog']) expect(html).toContain(`href="${href}"`)
+    for (const href of ['/hizmetler/', '/urunler/', '/blog/']) expect(html).toContain(`href="${href}"`)
   })
   it('redirects /terms.html to /sartlar', () => {
     const t = readFile('terms.html')
-    expect(t).toContain('url=/sartlar')
-    expect(t).toContain('<link rel="canonical" href="https://yuda.dev/sartlar">')
+    expect(t).toContain('url=/sartlar/')
+    expect(t).toContain('<link rel="canonical" href="https://yuda.dev/sartlar/">')
     expect(t).toContain('noindex')
   })
 })

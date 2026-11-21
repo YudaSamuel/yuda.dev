@@ -42,4 +42,9 @@ export default defineNuxtPlugin((nuxtApp) => {
   }
 
   nuxtApp.vueApp.directive('reveal', reveal)
+
+  // Only now is it safe to let CSS hide [data-reveal] elements: the observer exists.
+  if (import.meta.client) {
+    nuxtApp.hook('app:mounted', () => document.documentElement.classList.add('js'))
+  }
 })

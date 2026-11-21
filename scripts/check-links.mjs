@@ -12,6 +12,8 @@ const checker = new LinkChecker()
 const result = await checker.check({
   path: `${base}/`,
   recurse: true,
+  // serve.mjs 301s /x → /x/ like GitHub Pages; an internal redirect means a link without trailing slash.
+  redirects: 'error',
   // Only internal links: external sites are checked separately and may rate-limit.
   linksToSkip: async (link) => !link.startsWith(base),
 })

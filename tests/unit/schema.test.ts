@@ -33,6 +33,6 @@ describe('breadcrumbItems', () => {
   it('builds absolute URLs', () => {
     const r = breadcrumbItems([{ name: 'Ana Sayfa', path: '/' }, { name: 'Hizmetler', path: '/hizmetler' }])
     expect(r[0]).toEqual({ name: 'Ana Sayfa', item: 'https://yuda.dev/' })
-    expect(r[1].item).toBe('https://yuda.dev/hizmetler')
+    expect(r[1].item).toBe('https://yuda.dev/hizmetler/')
   })
 })

@@ -47,6 +47,8 @@ Yazı içeriği (Markdown)...
 ```
 
 - **İleri tarihli yayın:** `date` gelecekteyse yazı listelenmez, sitemap'e ve RSS'e girmez. Site her sabah 06:00'da (TR) otomatik yeniden derlenir ve tarihi gelen yazı yayına girer. Yazıları toplu yazıp tarihlerini dağıtabilirsin.
+- **Gizlilik:** Taslak ve tarihi gelmemiş yazılar build sırasında içerikten tamamen çıkarılır. HTML'e, sitemap'e, RSS'e ve tarayıcıya giden içerik veritabanına girmezler.
+- **Uzun süre push yapmazsan:** GitHub, 60 gün hareketsiz kalan depolarda zamanlanmış iş akışlarını kapatır. İş akışı her sabah kendini yeniden etkinleştiriyor. Yine de Actions sekmesinde "Deploy to GitHub Pages" kapalı görünürse "Enable workflow" de.
 - **Taslak:** `draft: true` olan yazı hiç yayınlanmaz.
 - **Kontrol:** `npm test` hatalı frontmatter'ı (eksik alan, uzun başlık, tırnaksız tarih) yakalar.
 - **Kapak görseli:** `scripts/make-images.mjs` içindeki `cover()` fonksiyonuna bir satır ekleyip `node scripts/make-images.mjs` çalıştırarak markalı kapak üretebilirsin.

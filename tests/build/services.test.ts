@@ -7,7 +7,7 @@ describe('/hizmetler', () => {
   const page = readPage('/hizmetler')
   it('lists 5 services in order', () => {
     const hrefs = page.querySelectorAll('main a[href^="/hizmetler/"]').map((a) => a.getAttribute('href'))
-    expect([...new Set(hrefs)]).toEqual(SLUGS.map((s) => `/hizmetler/${s}`))
+    expect([...new Set(hrefs)]).toEqual(SLUGS.map((s) => `/hizmetler/${s}/`))
   })
   it('has one h1 and a breadcrumb', () => {
     expect(page.querySelectorAll('h1')).toHaveLength(1)
@@ -20,7 +20,7 @@ describe('/hizmetler/web-tasarim', () => {
   it('has an Antalya h1, short title and canonical', () => {
     expect(page.querySelector('h1')!.text).toContain('Antalya')
     expect(page.querySelector('title')!.text.length).toBeLessThanOrEqual(60)
-    expect(page.querySelector('link[rel="canonical"]')!.getAttribute('href')).toBe('https://yuda.dev/hizmetler/web-tasarim')
+    expect(page.querySelector('link[rel="canonical"]')!.getAttribute('href')).toBe('https://yuda.dev/hizmetler/web-tasarim/')
   })
   it('emits Service, BreadcrumbList and ProfessionalService', () => {
     const svc = nodesOfType(page, 'Service')
@@ -34,7 +34,7 @@ describe('/hizmetler/web-tasarim', () => {
     expect(page.text).toContain("Antalya'da bir web sitesi ne kadar sürede hazır olur?")
   })
   it('links the related blog post', () => {
-    expect(page.querySelector('a[href="/blog/antalya-web-sitesi-yaptirmak"]')).not.toBeNull()
+    expect(page.querySelector('a[href="/blog/antalya-web-sitesi-yaptirmak/"]')).not.toBeNull()
   })
   it('shows the email fallback instead of the form while the access key is empty', () => {
     expect(page.querySelector('form[action="https://api.web3forms.com/submit"]')).toBeNull()

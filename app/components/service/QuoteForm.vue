@@ -1,7 +1,7 @@
 <script setup lang="ts">
 /**
- * Quote form. Works without JS (plain POST to Web3Forms, which redirects back to
- * /iletisim?gonderildi=1). With JS it submits via fetch and shows inline status.
+ * Quote form. Works without JS (plain POST to Web3Forms, which redirects to
+ * /iletisim/tesekkurler/). With JS it submits via fetch and shows inline status.
  * If no access key is configured, an email fallback is rendered instead.
  */
 const props = defineProps<{ service?: string; product?: string }>()
@@ -67,7 +67,7 @@ const label = 'block text-sm font-medium text-fg'
     <input type="hidden" name="access_key" :value="yuda.form.accessKey">
     <input type="hidden" name="subject" value="Yeni teklif talebi – yuda.dev">
     <input type="hidden" name="from_name" value="yuda.dev">
-    <input type="hidden" name="redirect" value="https://yuda.dev/iletisim?gonderildi=1">
+    <input type="hidden" name="redirect" value="https://yuda.dev/iletisim/tesekkurler/">
     <input type="checkbox" name="botcheck" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
 
     <div class="grid gap-5 sm:grid-cols-2">

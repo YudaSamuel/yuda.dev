@@ -22,8 +22,8 @@ describe('sitewide', () => {
         expect(desc.length, desc).toBeGreaterThan(0)
         expect(desc.length, desc).toBeLessThanOrEqual(155)
       })
-      it('has a canonical without trailing slash', () => {
-        const expected = route === '/' ? 'https://yuda.dev/' : `https://yuda.dev${route}`
+      it('has a canonical with trailing slash', () => {
+        const expected = route === '/' ? 'https://yuda.dev/' : `https://yuda.dev${route}/`
         expect(page.querySelector('link[rel="canonical"]')?.getAttribute('href')).toBe(expected)
       })
       it('gives every image an alt attribute', () => {
@@ -39,6 +39,12 @@ describe('sitewide', () => {
       })
       it('has no unresolved component placeholders', () => {
         expect(html).not.toMatch(/<(QuoteForm|ProductCard|PostCard|Pagination|AuthorBox)[\s>]/)
+      })
+      it('links internal pages with a trailing slash (GitHub Pages would 301 otherwise)', () => {
+        const bad = page.querySelectorAll('a[href^="/"]')
+          .map((a) => a.getAttribute('href')!)
+          .filter((h) => !/[?#]/.test(h) && !/\.[a-z0-9]+$/i.test(h) && !h.endsWith('/'))
+        expect(bad).toEqual([])
       })
       it('opens external links safely', () => {
         for (const a of page.querySelectorAll('a[target="_blank"]')) expect(a.getAttribute('rel') ?? '', a.getAttribute('href')!).toContain('noopener')

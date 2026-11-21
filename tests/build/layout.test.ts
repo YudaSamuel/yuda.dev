@@ -6,12 +6,12 @@ describe('layout', () => {
   const html = readFile('index.html')
 
   it('has primary nav links', () => {
-    for (const href of ['/hizmetler', '/urunler', '/blog', '/iletisim', '/referanslar', '/hakkimizda']) {
+    for (const href of ['/hizmetler/', '/urunler/', '/blog/', '/iletisim/', '/referanslar/', '/hakkimizda/']) {
       expect(page.querySelector(`header nav a[href="${href}"]`), href).not.toBeNull()
     }
   })
   it('has a "Teklif Al" CTA in the header', () => {
-    const cta = page.querySelectorAll('header a[href="/iletisim"]').find((a) => a.text.includes('Teklif Al'))
+    const cta = page.querySelectorAll('header a[href="/iletisim/"]').find((a) => a.text.includes('Teklif Al'))
     expect(cta).toBeDefined()
   })
   it('footer links the contact email', () => {
@@ -31,6 +31,11 @@ describe('layout', () => {
     const cssIdx = head.indexOf('rel="stylesheet"')
     expect(themeIdx).toBeGreaterThan(-1)
     expect(cssIdx === -1 || themeIdx < cssIdx).toBe(true)
+  })
+  it('does not mark html.js before the app bundle runs (failed JS must not hide content)', () => {
+    const head = html.slice(0, html.indexOf('</head>'))
+    const inline = [...head.matchAll(/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/g)].map((m) => m[1]).join('\n')
+    expect(inline).not.toMatch(/classList\.add\(\s*['"`]js['"`]\s*\)/)
   })
   it('loads nothing from tailwind CDN or unpkg', () => {
     expect(html).not.toContain('cdn.tailwindcss.com')

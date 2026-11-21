@@ -23,7 +23,7 @@ const { data: extras } = await useAsyncData(`post-extras-${slug}`, async () => {
   }
 })
 
-usePageSeo({ title: p.title, description: p.description, type: 'article', image: p.cover })
+usePageSeo({ title: p.title, description: p.description, type: 'article', ogImage: { title: p.title, subtitle: categoryLabel(p.category) } })
 useSeoMeta({ articlePublishedTime: p.date, articleModifiedTime: p.updated ?? p.date, articleSection: categoryLabel(p.category) })
 useSchemaOrg([
   defineArticle({

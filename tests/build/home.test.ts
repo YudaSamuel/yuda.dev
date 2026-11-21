@@ -27,8 +27,8 @@ describe('home structure', () => {
 describe('hero', () => {
   const hero = page.querySelector('section#hero')!
   it('links to quote and services', () => {
-    expect(hero.querySelector('a[href="/iletisim"]')).not.toBeNull()
-    expect(hero.querySelector('a[href="/hizmetler"]')).not.toBeNull()
+    expect(hero.querySelector('a[href="/iletisim/"]')).not.toBeNull()
+    expect(hero.querySelector('a[href="/hizmetler/"]')).not.toBeNull()
   })
   it('is never gated behind a scroll reveal', () => {
     expect(hero.querySelectorAll('[data-reveal]')).toHaveLength(0)
@@ -37,7 +37,7 @@ describe('hero', () => {
 
 describe('sections', () => {
   it('lists 5 service cards linking to service pages', () => {
-    const links = page.querySelectorAll('section#hizmetler a[href^="/hizmetler/"]')
+    const links = page.querySelectorAll('section#hizmetler a[href^="/hizmetler/"]').filter((a) => a.getAttribute('href') !== '/hizmetler/')
     expect(links).toHaveLength(5)
   })
   it('explains the delivery process in at least 4 steps with a diagram', () => {
@@ -49,15 +49,15 @@ describe('sections', () => {
     for (const s of ['Otel', 'Restoran', 'Sağlık', 'Emlak']) expect(text).toContain(s)
   })
   it('shows at most 3 product cards', () => {
-    const n = page.querySelectorAll('section#urunler a[href^="/urunler/"]').filter((a) => a.getAttribute('href') !== '/urunler').length
+    const n = page.querySelectorAll('section#urunler a[href^="/urunler/"]').filter((a) => a.getAttribute('href') !== '/urunler/').length
     expect(n).toBeGreaterThan(0)
     expect(n).toBeLessThanOrEqual(3)
   })
   it('lists only published posts', () => {
     const blog = page.querySelector('section#blog')!
-    expect(blog.querySelector('a[href="/blog/antalya-web-sitesi-yaptirmak"]')).not.toBeNull()
-    expect(blog.querySelector('a[href="/blog/test-planlanmis"]')).toBeNull()
-    expect(blog.querySelector('a[href="/blog/test-taslak"]')).toBeNull()
+    expect(blog.querySelector('a[href="/blog/antalya-web-sitesi-yaptirmak/"]')).not.toBeNull()
+    expect(blog.querySelector('a[href="/blog/test-planlanmis/"]')).toBeNull()
+    expect(blog.querySelector('a[href="/blog/test-taslak/"]')).toBeNull()
   })
   it('has an FAQ with at least 4 questions', () => {
     expect(page.querySelectorAll('section#sss details').length).toBeGreaterThanOrEqual(4)

@@ -1,3 +1,4 @@
+import { gunzipSync } from 'node:zlib'
 import { describe, expect, it } from 'vitest'
 import { fileExists, nodesOfType, readFile, readPage } from './helpers'
 
@@ -7,10 +8,10 @@ const HIDDEN = ['/blog/test-planlanmis', '/blog/test-taslak']
 describe('/blog listing', () => {
   const page = readPage('/blog')
   it('lists published posts', () => {
-    for (const p of LIVE) expect(page.querySelector(`main a[href="${p}"]`), p).not.toBeNull()
+    for (const p of LIVE) expect(page.querySelector(`main a[href="${p}/"]`), p).not.toBeNull()
   })
   it('hides future-dated and draft posts', () => {
-    for (const p of HIDDEN) expect(page.querySelector(`a[href="${p}"]`), p).toBeNull()
+    for (const p of HIDDEN) expect(page.querySelector(`a[href="${p}/"]`), p).toBeNull()
   })
   it('advertises the RSS feed', () => {
     expect(page.querySelector('link[rel="alternate"][type="application/rss+xml"]')?.getAttribute('href')).toBe('/blog/rss.xml')
@@ -27,7 +28,18 @@ describe('hidden posts are never generated', () => {
   it('keeps them out of the sitemap', () => {
     const sm = readFile('sitemap.xml')
     for (const p of HIDDEN) expect(sm).not.toContain(p)
-    for (const p of LIVE) expect(sm).toContain(`https://yuda.dev${p}`)
+    for (const p of LIVE) expect(sm).toContain(`https://yuda.dev${p}/`)
+  })
+})
+
+describe('shipped content database', () => {
+  it('contains no draft or future-dated post', () => {
+    const raw = readFile('__nuxt_content/blog/sql_dump.txt').trim()
+    let sql = raw
+    try { sql = gunzipSync(Buffer.from(raw, 'base64')).toString('utf8') }
+    catch { /* plain text dump */ }
+    expect(sql).toContain('antalya-web-sitesi-yaptirmak')
+    for (const p of HIDDEN) expect(sql, p).not.toContain(p.split('/').pop())
   })
 })
 
@@ -63,14 +75,14 @@ describe('post page', () => {
     expect(names).toEqual(['Ana Sayfa', 'Blog', 'İşletmeler İçin', "Antalya'da Web Sitesi Yaptırmak: 2026 Rehberi"])
   })
   it('links its related service', () => {
-    expect(page.querySelector('a[href="/hizmetler/web-tasarim"]')).not.toBeNull()
+    expect(page.querySelector('a[href="/hizmetler/web-tasarim/"]')).not.toBeNull()
   })
 })
 
 describe('category page', () => {
   const page = readPage('/blog/kategori/isletmeler-icin')
   it('lists only that category', () => {
-    expect(page.querySelector('main a[href="/blog/antalya-web-sitesi-yaptirmak"]')).not.toBeNull()
-    expect(page.querySelector('main a[href="/blog/lisans-sistemi-nedir"]')).toBeNull()
+    expect(page.querySelector('main a[href="/blog/antalya-web-sitesi-yaptirmak/"]')).not.toBeNull()
+    expect(page.querySelector('main a[href="/blog/lisans-sistemi-nedir/"]')).toBeNull()
   })
 })

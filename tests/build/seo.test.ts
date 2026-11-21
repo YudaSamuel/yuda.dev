@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
 import { jsonLd, nodesOfType, readFile, readPage } from './helpers'
 
@@ -29,6 +30,24 @@ describe('home page SEO', () => {
   })
   it('omits telephone while phone is empty', () => {
     expect(nodesOfType(page, 'ProfessionalService')[0].telephone).toBeUndefined()
+  })
+})
+
+describe('OG images', () => {
+  const tpl = readFileSync('app/components/OgImage/YudaOg.satori.vue', 'utf8')
+  const cfg = readFileSync('nuxt.config.ts', 'utf8')
+  it('render with fonts that include Turkish glyphs (latin-ext)', () => {
+    expect(tpl).toMatch(/font-family:\s*'?Outfit/)
+    expect(cfg).toMatch(/fontSubsets:\s*\[[^\]]*'latin-ext'/)
+  })
+  it('use the red brand, not the rejected teal', () => {
+    expect(tpl).not.toMatch(/#042f2e|#5eead4|#0f766e|#14b8a6/i)
+    expect(tpl).toMatch(/#ff3131/i)
+  })
+  it('are generated PNGs on blog and product pages too', () => {
+    for (const r of ['/blog/antalya-web-sitesi-yaptirmak', '/urunler/proxy-chain']) {
+      expect(readPage(r).querySelector('meta[property="og:image"]')?.getAttribute('content'), r).toMatch(/^https:\/\/yuda\.dev\/_og\/.+\.png$/)
+    }
   })
 })
 

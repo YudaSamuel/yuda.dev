@@ -11,7 +11,7 @@ describe('/urunler', () => {
   const page = readPage('/urunler')
   it('lists 4 products', () => {
     const hrefs = new Set(page.querySelectorAll('main a[href^="/urunler/"]').map((a) => a.getAttribute('href')))
-    expect(hrefs).toEqual(new Set(['/urunler/proxy-chain', '/urunler/lisans-sistemi', '/urunler/url-kisaltma', '/urunler/yudastore']))
+    expect(hrefs).toEqual(new Set(['/urunler/proxy-chain/', '/urunler/lisans-sistemi/', '/urunler/url-kisaltma/', '/urunler/yudastore/']))
   })
   it('has one h1', () => {
     expect(page.querySelectorAll('h1')).toHaveLength(1)
@@ -34,7 +34,7 @@ describe('in-stock products link to checkout', () => {
       expect(offer.priceCurrency).toBe('USD')
       expect(offer.availability).toBe('https://schema.org/InStock')
       expect([].concat(p['@type'])).toContain('SoftwareApplication')
-      expect(page.querySelector('a[href="/hizmetler/yazilim-gelistirme"]')).not.toBeNull()
+      expect(page.querySelector('a[href="/hizmetler/yazilim-gelistirme/"]')).not.toBeNull()
     })
   }
 })
@@ -45,7 +45,7 @@ describe('/urunler/yudastore (out of stock)', () => {
     expect(page.querySelectorAll('a[href^="https://checkout.yuda.dev"]')).toHaveLength(0)
   })
   it('links to contact with the product preselected', () => {
-    expect(page.querySelector('a[href="/iletisim?urun=yudastore"]')).not.toBeNull()
+    expect(page.querySelector('a[href="/iletisim/?urun=yudastore"]')).not.toBeNull()
   })
   it('marks the offer OutOfStock', () => {
     const offer = [].concat(productNode('/urunler/yudastore').offers)[0] as any

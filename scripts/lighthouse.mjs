@@ -4,7 +4,7 @@ import { spawn } from 'node:child_process'
 import * as chromeLauncher from 'chrome-launcher'
 import lighthouse from 'lighthouse'
 
-const PAGES = ['/', '/hizmetler/web-tasarim', '/urunler/proxy-chain', '/blog/antalya-web-sitesi-yaptirmak']
+const PAGES = ['/', '/hizmetler/web-tasarim/', '/urunler/proxy-chain/', '/blog/antalya-web-sitesi-yaptirmak/']
 const MIN = 0.95
 const port = 4800 + Math.floor(Math.random() * 500)
 const server = spawn(process.execPath, ['scripts/serve.mjs', String(port)], { stdio: 'ignore', env: { ...process.env, PORT: String(port) } })

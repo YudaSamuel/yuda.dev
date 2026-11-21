@@ -12,7 +12,7 @@ describe('filled config: quote form', () => {
   it('carries access key, honeypot and redirect', () => {
     expect(form!.querySelector('input[name="access_key"]')!.getAttribute('value')).toBe('test-key')
     expect(form!.querySelector('input[name="botcheck"]')).not.toBeNull()
-    expect(form!.querySelector('input[name="redirect"]')!.getAttribute('value')).toBe('https://yuda.dev/iletisim?gonderildi=1')
+    expect(form!.querySelector('input[name="redirect"]')!.getAttribute('value')).toBe('https://yuda.dev/iletisim/tesekkurler/')
   })
   it('requires name, contact, message and KVKK consent', () => {
     for (const n of ['ad', 'iletisim', 'mesaj', 'kvkk']) {

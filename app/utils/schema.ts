@@ -19,9 +19,10 @@ export function businessSchema(b: Business): Record<string, unknown> {
   return node
 }
 
+/** Absolute page URL, always with a trailing slash (GitHub Pages directory style). */
 export function absoluteUrl(path: string): string {
-  if (path === '/' || path === '') return `${SITE_URL}/`
-  return `${SITE_URL}${path.startsWith('/') ? path : `/${path}`}`.replace(/\/+$/, '')
+  const clean = `/${path.replace(/^\/+|\/+$/g, '')}`
+  return clean === '/' ? `${SITE_URL}/` : `${SITE_URL}${clean}/`
 }
 
 export function breadcrumbItems(trail: { name: string; path: string }[]): { name: string; item: string }[] {

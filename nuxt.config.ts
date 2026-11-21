@@ -4,6 +4,9 @@ export default defineNuxtConfig({
   compatibilityDate: '2026-11-01',
   // Inline CSS into the HTML so first paint doesn't wait on a stylesheet request.
   features: { inlineStyles: true },
+  // GitHub Pages serves /x/index.html and 301-redirects /x → /x/. Every internal
+  // link, canonical and sitemap URL therefore ends with a slash.
+  experimental: { defaults: { nuxtLink: { trailingSlash: 'append' } } },
   devtools: { enabled: false },
   modules: [
     '@nuxt/content',
@@ -24,7 +27,7 @@ export default defineNuxtConfig({
     name: 'Yuda',
     description: "Antalya'da web tasarım, özel yazılım, mobil uygulama ve siber güvenlik hizmetleri.",
     defaultLocale: 'tr',
-    trailingSlash: false,
+    trailingSlash: true,
   },
   app: {
     head: {
@@ -40,9 +43,10 @@ export default defineNuxtConfig({
       ],
       script: [
         {
-          // Runs before first paint: marks JS as available (enables scroll reveals)
-          // and applies dark mode so it never flashes white.
-          innerHTML: `(function(){document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('dark')}catch(e){}})()`,
+          // Runs before first paint so dark mode never flashes white. (html.js, which
+          // enables scroll reveals, is added by plugins/reveal.ts once the app mounts,
+          // so a failed or blocked bundle never leaves content hidden.)
+          innerHTML: `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('dark')}catch(e){}})()`,
           tagPriority: 'critical',
           tagPosition: 'head',
         },
@@ -80,11 +84,22 @@ export default defineNuxtConfig({
   },
   ogImage: {
     defaults: { renderer: 'satori' },
+    // Turkish letters (ş ğ İ) live in latin-ext; the default ['latin'] renders them as "NO GLYPH".
+    fontSubsets: ['latin', 'latin-ext'],
   },
   nitro: {
     prerender: {
       crawlLinks: true,
-      routes: ['/', '/blog/rss.xml'],
+      routes: ['/', '/blog/rss.xml', '/iletisim/tesekkurler/'],
+      // Pages are canonical with a trailing slash. Skip crawler-discovered variants
+      // without it (they raced on the same payload cache file on Windows) and URLs
+      // with a query string (they would overwrite the page's index.html with
+      // query-specific markup). Real links without a slash are caught by
+      // tests/build/sitewide.test.ts and check:links.
+      ignore: [
+        (path: string) => path.includes('?'),
+        (path: string) => !path.endsWith('/') && !/\.[a-z0-9]+$/i.test(path),
+      ],
       failOnError: true,
     },
   },

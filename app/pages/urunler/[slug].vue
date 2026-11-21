@@ -11,7 +11,7 @@ const p = product.value
 usePageSeo({
   title: p.title,
   description: p.description,
-  image: p.images[0].src,
+  ogImage: { title: p.name, subtitle: `Hazır script · $${p.price} · tek seferlik ödeme` },
 })
 useSchemaOrg([
   {

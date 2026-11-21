@@ -10,7 +10,7 @@ import { gzipSync } from 'node:zlib'
 
 const root = join(process.cwd(), '.output', 'public')
 const port = Number(process.env.PORT || process.argv[2] || 4173)
-const types = { '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'text/javascript', '.json': 'application/json', '.xml': 'application/xml', '.xsl': 'application/xml', '.txt': 'text/plain; charset=utf-8', '.svg': 'image/svg+xml', '.png': 'image/png', '.webp': 'image/webp', '.ico': 'image/x-icon', '.woff2': 'font/woff2', '.jpg': 'image/jpeg' }
+const types = { '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'text/javascript', '.json': 'application/json', '.xml': 'application/xml', '.xsl': 'application/xml', '.txt': 'text/plain; charset=utf-8', '.svg': 'image/svg+xml', '.png': 'image/png', '.webp': 'image/webp', '.ico': 'image/x-icon', '.woff2': 'font/woff2', '.jpg': 'image/jpeg', '.wasm': 'application/wasm' }
 const compressible = new Set(['.html', '.css', '.js', '.json', '.xml', '.xsl', '.txt', '.svg'])
 
 async function exists(p) {
@@ -41,6 +41,12 @@ make(async (req, res) => {
   const base = join(root, normalize(url))
   if (!base.startsWith(root)) {
     res.writeHead(403).end()
+    return
+  }
+  // Like GitHub Pages: a directory requested without a trailing slash gets a 301.
+  if (!url.endsWith('/') && await exists(join(base, 'index.html'))) {
+    res.writeHead(301, { location: `${url}/` })
+    res.end()
     return
   }
   for (const candidate of [base, join(base, 'index.html'), `${base}.html`]) {

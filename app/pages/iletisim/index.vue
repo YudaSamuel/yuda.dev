@@ -1,8 +1,5 @@
 <script setup lang="ts">
 const { yuda } = useAppConfig()
-const route = useRoute()
-const sent = ref(false)
-onMounted(() => { sent.value = route.query.gonderildi === '1' })
 
 usePageSeo({
   title: 'İletişim ve Ücretsiz Teklif',
@@ -29,9 +26,6 @@ const wa = computed(() => {
     <UiContainer>
       <div class="grid gap-12 py-16 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
         <div>
-          <div v-if="sent" role="status" class="mb-6 rounded-2xl border border-emerald-500/40 bg-emerald-500/10 p-5 text-fg">
-            Teşekkürler! Mesajınız ulaştı, en kısa sürede dönüş yapacağız.
-          </div>
           <h2 class="sr-only">Teklif formu</h2>
           <ServiceQuoteForm />
         </div>
