@@ -37,6 +37,7 @@ useSchemaOrg([
     author: { '@type': 'Person', name: p.author, url: `https://yuda.dev${yuda.author.url}` },
   }),
 ])
+const toc = (p.body?.toc?.links ?? []) as { id: string; text: string }[]
 const trail = [
   { name: 'Ana Sayfa', path: '/' },
   { name: 'Blog', path: '/blog' },
@@ -50,11 +51,11 @@ const trail = [
     <header class="relative isolate overflow-hidden border-b border-border">
       <div class="bg-grid absolute inset-0 -z-10" aria-hidden="true" />
       <UiContainer>
-        <div class="mx-auto max-w-3xl py-12 sm:py-16">
+        <div class="py-12 sm:py-16">
           <SiteBreadcrumbs :trail="trail" />
           <NuxtLink :to="`/blog/kategori/${post.category}`" class="mt-10 inline-block font-mono text-xs uppercase tracking-[0.18em] text-brand">{{ categoryLabel(post.category) }}</NuxtLink>
-          <h1 class="mt-3 text-4xl font-bold leading-[1.1] sm:text-5xl">{{ post.title }}</h1>
-          <p class="mt-5 text-lg leading-relaxed text-fg-muted">{{ post.description }}</p>
+          <h1 class="mt-3 max-w-4xl text-4xl font-bold leading-[1.1] sm:text-5xl">{{ post.title }}</h1>
+          <p class="mt-5 max-w-3xl text-lg leading-relaxed text-fg-muted">{{ post.description }}</p>
           <p class="mt-6 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-fg-muted">
             <span>{{ post.author }}</span>
             <span aria-hidden="true">·</span>
@@ -67,7 +68,10 @@ const trail = [
     </header>
 
     <UiContainer>
-      <div class="mx-auto max-w-3xl py-12">
+      <!-- Same two-column grid as service pages: content starts at the logo edge,
+           the sticky sidebar ends at the header CTA edge. -->
+      <div class="grid gap-14 py-12 lg:grid-cols-[minmax(0,1fr)_20rem]">
+      <div class="min-w-0">
         <img :src="post.cover" :alt="post.coverAlt" width="1200" height="630" class="w-full rounded-2xl border border-border" fetchpriority="high">
         <ContentRenderer :value="post" class="prose-yuda mt-12 max-w-none" />
 
@@ -85,6 +89,23 @@ const trail = [
         <div class="mt-10">
           <BlogAuthorBox />
         </div>
+      </div>
+
+      <aside class="space-y-4 lg:sticky lg:top-24 lg:self-start">
+        <nav v-if="toc.length" aria-labelledby="bu-yazida" class="rounded-2xl border border-border bg-card p-6">
+          <p id="bu-yazida" class="font-mono text-xs uppercase tracking-widest text-brand">Bu yazıda</p>
+          <ol class="mt-4 space-y-2.5 text-sm">
+            <li v-for="l in toc" :key="l.id">
+              <a :href="`#${l.id}`" class="text-fg-muted transition-colors hover:text-fg">{{ l.text }}</a>
+            </li>
+          </ol>
+        </nav>
+        <div class="rounded-2xl border border-border bg-bg-subtle p-6">
+          <p class="font-semibold">Projeniz için teklif alın</p>
+          <p class="mt-2 text-sm leading-relaxed text-fg-muted">Ücretsiz keşif görüşmesiyle ihtiyacınızı netleştirip yazılı teklif hazırlayalım.</p>
+          <UiButton to="/iletisim" class="mt-5 w-full">Ücretsiz teklif iste</UiButton>
+        </div>
+      </aside>
       </div>
     </UiContainer>
 

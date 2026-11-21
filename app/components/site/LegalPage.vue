@@ -12,7 +12,8 @@ const route = useRoute()
       <p class="mt-6 text-sm text-fg-muted">Son güncelleme: <time :datetime="doc.updated">{{ formatDateTr(doc.updated) }}</time></p>
     </SitePageHero>
     <UiContainer>
-      <ContentRenderer :value="doc" class="prose-yuda mx-auto max-w-3xl py-16" />
+      <!-- Left-aligned with the header logo, like every other page; line length capped for readability. -->
+      <ContentRenderer :value="doc" class="prose-yuda max-w-3xl py-16" />
     </UiContainer>
   </div>
 </template>
