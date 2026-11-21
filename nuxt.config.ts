@@ -20,6 +20,7 @@ export default defineNuxtConfig({
   site: {
     url: 'https://yuda.dev',
     name: 'Yuda',
+    description: "Antalya'da web tasarım, özel yazılım, mobil uygulama ve siber güvenlik hizmetleri.",
     defaultLocale: 'tr',
     trailingSlash: false,
   },
@@ -30,6 +31,22 @@ export default defineNuxtConfig({
   },
   content: {
     experimental: { sqliteConnector: 'native' },
+  },
+  schemaOrg: {
+    identity: {
+      type: 'Organization',
+      name: 'Yuda',
+      url: 'https://yuda.dev/',
+      logo: 'https://yuda.dev/img/logo.png',
+    },
+  },
+  robots: {
+    groups: [
+      { userAgent: ['OAI-SearchBot', 'PerplexityBot'], allow: ['/'] },
+    ],
+  },
+  ogImage: {
+    defaults: { renderer: 'satori' },
   },
   nitro: {
     prerender: {

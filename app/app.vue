@@ -1,5 +1,3 @@
 <template>
-  <main>
-    <h1>Yuda</h1>
-  </main>
+  <NuxtPage />
 </template>
