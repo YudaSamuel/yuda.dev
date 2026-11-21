@@ -2,6 +2,8 @@ import tailwindcss from '@tailwindcss/vite'
 
 export default defineNuxtConfig({
   compatibilityDate: '2026-11-01',
+  // Inline CSS into the HTML so first paint doesn't wait on a stylesheet request.
+  features: { inlineStyles: true },
   devtools: { enabled: false },
   modules: [
     '@nuxt/content',
@@ -48,10 +50,12 @@ export default defineNuxtConfig({
     },
   },
   fonts: {
-    defaults: { subsets: ['latin', 'latin-ext'] },
+    // Body text uses the system font stack (zero download, full Turkish support).
+    // Only the brand display font is self-hosted; not preloaded so it never
+    // competes with CSS for first paint (font-display: swap).
+    defaults: { subsets: ['latin', 'latin-ext'], preload: false },
     families: [
-      { name: 'Outfit', weights: [500, 600, 700], provider: 'google' },
-      { name: 'Inter', weights: [400, 500, 600], provider: 'google' },
+      { name: 'Outfit', weights: [700], provider: 'google' },
     ],
   },
   icon: {

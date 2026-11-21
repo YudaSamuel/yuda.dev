@@ -10,7 +10,8 @@
     "test": "vitest run --project unit",
     "test:build": "vitest run --project build",
     "test:build:filled": "cross-env YUDA_TEST_FILLED=1 nuxt generate && cross-env YUDA_TEST_FILLED=1 vitest run --project filled",
-    "check:links": "node scripts/check-links.mjs"
+    "check:links": "node scripts/check-links.mjs",
+    "check:lighthouse": "node scripts/lighthouse.mjs"
   },
   "dependencies": {
     "@iconify-json/lucide": "^1.2.157",
@@ -33,7 +34,9 @@
     "zod": "^4.6.7"
   },
   "devDependencies": {
+    "chrome-launcher": "^1.2.3",
     "cross-env": "^10.1.0",
+    "lighthouse": "^12.8.2",
     "linkinator": "^8.1.0",
     "node-html-parser": "^9.0.7",
     "typescript": "^6.0.3",
