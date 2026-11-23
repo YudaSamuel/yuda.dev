@@ -10,6 +10,19 @@ describe('todayInIstanbul', () => {
   })
 })
 
+describe('YUDA_NOW (simulate a future build date)', () => {
+  it('overrides the default clock', () => {
+    process.env.YUDA_NOW = '2099-06-01T03:00:00Z'
+    try {
+      expect(todayInIstanbul()).toBe('2099-06-01')
+      expect(isPublished({ date: '2099-01-01' })).toBe(true)
+    }
+    finally {
+      delete process.env.YUDA_NOW
+    }
+  })
+})
+
 describe('isPublished', () => {
   const build = new Date('2026-11-22T03:00:00Z')
   it('publishes a post dated today', () => {

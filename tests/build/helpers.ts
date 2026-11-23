@@ -1,6 +1,8 @@
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs'
 import { join } from 'node:path'
 import { parse, type HTMLElement } from 'node-html-parser'
+import { parse as parseYaml } from 'yaml'
+import { isPublished } from '../../app/utils/publishing'
 
 export const OUT = join(process.cwd(), '.output', 'public')
 
@@ -40,6 +42,39 @@ export function nodesOfType(page: HTMLElement, type: string): any[] {
     const t = n['@type']
     return Array.isArray(t) ? t.includes(type) : t === type
   })
+}
+
+/**
+ * Blog posts that should be live today, newest first, computed from content/
+ * (not hard-coded), so publishing a new post never breaks a test.
+ */
+export interface LivePost { slug: string; date: string; category: string; relatedServices: string[] }
+
+export function livePosts(now?: Date): LivePost[] {
+  const dir = join(process.cwd(), 'content', 'blog')
+  return readdirSync(dir)
+    .filter((f) => f.endsWith('.md'))
+    .map((f) => {
+      const fm = parseYaml(readFileSync(join(dir, f), 'utf8').match(/^---\r?\n([\s\S]*?)\r?\n---/)![1])
+      return {
+        slug: f.replace(/\.md$/, ''),
+        date: String(fm.date),
+        draft: fm.draft === true,
+        category: String(fm.category),
+        relatedServices: (fm.relatedServices ?? []) as string[],
+      }
+    })
+    .filter((p) => isPublished(p, now))
+    .sort((a, b) => b.date.localeCompare(a.date))
+    .map(({ slug, date, category, relatedServices }) => ({ slug, date, category, relatedServices }))
+}
+
+/** Hrefs of /blog/<slug>/ links inside an element, in document order, de-duplicated. */
+export function postLinks(el: HTMLElement): string[] {
+  const hrefs = el.querySelectorAll('a[href^="/blog/"]')
+    .map((a) => a.getAttribute('href')!)
+    .filter((h) => /^\/blog\/[a-z0-9-]+\/$/.test(h) && !h.startsWith('/blog/kategori') && !h.startsWith('/blog/sayfa'))
+  return [...new Set(hrefs)]
 }
 
 /** All generated index.html files as routes, e.g. '/', '/hizmetler'. */

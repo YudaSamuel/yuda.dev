@@ -5,13 +5,23 @@ const istanbulDate = new Intl.DateTimeFormat('en-CA', {
   day: '2-digit',
 })
 
+/**
+ * Build clock. YUDA_NOW (an ISO date) lets a build or test run pretend it is a
+ * different day, to check that scheduled posts publish without breaking tests.
+ * Only read at build/test time; in the browser it is always the real clock.
+ */
+function clock(): Date {
+  const override = typeof process !== 'undefined' ? process.env?.YUDA_NOW : undefined
+  return override ? new Date(override) : new Date()
+}
+
 /** Calendar day in Europe/Istanbul as 'YYYY-MM-DD'. */
-export function todayInIstanbul(now: Date = new Date()): string {
+export function todayInIstanbul(now: Date = clock()): string {
   return istanbulDate.format(now)
 }
 
 /** A post is live when it is not a draft and its date is today or earlier (Istanbul). */
-export function isPublished(post: { date: string | Date; draft?: boolean }, now: Date = new Date()): boolean {
+export function isPublished(post: { date: string | Date; draft?: boolean }, now: Date = clock()): boolean {
   if (post.draft) return false
   const day = typeof post.date === 'string' ? post.date.slice(0, 10) : post.date.toISOString().slice(0, 10)
   return day <= todayInIstanbul(now)

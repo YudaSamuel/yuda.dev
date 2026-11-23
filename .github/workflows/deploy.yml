@@ -4,8 +4,11 @@ on:
   push:
     branches: [main]
   schedule:
-    # 03:00 UTC = 06:00 Europe/Istanbul. Publishes blog posts whose date has arrived.
-    - cron: '0 3 * * *'
+    # Publishes blog posts whose date has arrived (Europe/Istanbul day).
+    # GitHub can delay scheduled runs by hours, worst at the top of the hour,
+    # so run every 3 hours at an odd minute. Builds are idempotent.
+    # 00:17 UTC = 03:17 TR, 03:17 UTC = 06:17 TR, ...
+    - cron: '17 */3 * * *'
   workflow_dispatch:
 
 permissions:

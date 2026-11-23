@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { readFile, readPage } from './helpers'
+import { livePosts, readFile, readPage } from './helpers'
 
 const page = readPage('/')
 const html = readFile('index.html')
@@ -53,9 +53,17 @@ describe('sections', () => {
     expect(n).toBeGreaterThan(0)
     expect(n).toBeLessThanOrEqual(3)
   })
-  it('lists only published posts', () => {
+  it('lists the three newest published posts, newest first', () => {
     const blog = page.querySelector('section#blog')!
-    expect(blog.querySelector('a[href="/blog/antalya-web-sitesi-yaptirmak/"]')).not.toBeNull()
+    const shown = blog.querySelectorAll('a[href^="/blog/"]')
+      .map((a) => a.getAttribute('href')!)
+      .filter((h) => h !== '/blog/')
+    const expected = livePosts().slice(0, 3).map((p) => `/blog/${p.slug}/`)
+    expect(expected.length).toBeGreaterThan(0)
+    expect(shown).toEqual(expected)
+  })
+  it('never lists scheduled or draft posts', () => {
+    const blog = page.querySelector('section#blog')!
     expect(blog.querySelector('a[href="/blog/test-planlanmis/"]')).toBeNull()
     expect(blog.querySelector('a[href="/blog/test-taslak/"]')).toBeNull()
   })

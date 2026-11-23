@@ -46,9 +46,10 @@ draft: false
 Yazı içeriği (Markdown)...
 ```
 
-- **İleri tarihli yayın:** `date` gelecekteyse yazı listelenmez, sitemap'e ve RSS'e girmez. Site her sabah 06:00'da (TR) otomatik yeniden derlenir ve tarihi gelen yazı yayına girer. Yazıları toplu yazıp tarihlerini dağıtabilirsin.
+- **İleri tarihli yayın:** `date` gelecekteyse yazı listelenmez, sitemap'e ve RSS'e girmez. Site 3 saatte bir otomatik yeniden derlenir (GitHub zamanlanmış görevleri saatlerce geciktirebildiği için); tarihi gelen yazı genellikle sabah saatlerinde yayına girer. Yazıları toplu yazıp tarihlerini dağıtabilirsin.
+- **İleri tarihi denemek:** `YUDA_NOW=2027-03-01T04:00:00Z npm run generate` ve ardından aynı değişkenle `npm run test:build`, siteyi o günmüş gibi derleyip test eder. Yeni yazılar eklemeden önce yayın günlerini böyle kontrol edebilirsin.
 - **Gizlilik:** Taslak ve tarihi gelmemiş yazılar build sırasında içerikten tamamen çıkarılır. HTML'e, sitemap'e, RSS'e ve tarayıcıya giden içerik veritabanına girmezler.
-- **Uzun süre push yapmazsan:** GitHub, 60 gün hareketsiz kalan depolarda zamanlanmış iş akışlarını kapatır. İş akışı her sabah kendini yeniden etkinleştiriyor. Yine de Actions sekmesinde "Deploy to GitHub Pages" kapalı görünürse "Enable workflow" de.
+- **Uzun süre push yapmazsan:** GitHub, 60 gün hareketsiz kalan depolarda zamanlanmış iş akışlarını kapatır. İş akışı her zamanlanmış çalışmada kendini yeniden etkinleştiriyor. Yine de Actions sekmesinde "Deploy to GitHub Pages" kapalı görünürse "Enable workflow" de.
 - **Taslak:** `draft: true` olan yazı hiç yayınlanmaz.
 - **Kontrol:** `npm test` hatalı frontmatter'ı (eksik alan, uzun başlık, tırnaksız tarih) yakalar.
 - **Kapak görseli:** `scripts/make-images.mjs` içindeki `cover()` fonksiyonuna bir satır ekleyip `node scripts/make-images.mjs` çalıştırarak markalı kapak üretebilirsin.

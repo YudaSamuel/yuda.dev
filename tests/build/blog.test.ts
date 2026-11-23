@@ -3,15 +3,18 @@ import { gunzipSync } from 'node:zlib'
 import { parse } from 'yaml'
 import { describe, expect, it } from 'vitest'
 import { isPublished } from '~/utils/publishing'
-import { fileExists, nodesOfType, readFile, readPage } from './helpers'
+import { fileExists, livePosts, nodesOfType, postLinks, readFile, readPage } from './helpers'
 
-const LIVE = ['/blog/antalya-web-sitesi-yaptirmak', '/blog/lisans-sistemi-nedir']
+const LIVE = livePosts().map((p) => `/blog/${p.slug}`)
 const HIDDEN = ['/blog/test-planlanmis', '/blog/test-taslak']
 
 describe('/blog listing', () => {
   const page = readPage('/blog')
-  it('lists published posts', () => {
-    for (const p of LIVE) expect(page.querySelector(`main a[href="${p}/"]`), p).not.toBeNull()
+  it('lists the newest 9 published posts on page 1, newest first', () => {
+    expect(postLinks(page.querySelector('main')!)).toEqual(LIVE.slice(0, 9).map((p) => `${p}/`))
+  })
+  it('generates a page for every published post', () => {
+    for (const p of LIVE) expect(fileExists(`${p.slice(1)}/index.html`), p).toBe(true)
   })
   it('hides future-dated and draft posts', () => {
     for (const p of HIDDEN) expect(page.querySelector(`a[href="${p}/"]`), p).toBeNull()
@@ -59,7 +62,7 @@ describe('RSS', () => {
       return isPublished({ date: fm.date, draft: fm.draft === true })
     })
     expect(live.length).toBeGreaterThanOrEqual(2)
-    expect(rss.match(/<item>/g)).toHaveLength(live.length)
+    expect(rss.match(/<item>/g)).toHaveLength(Math.min(live.length, 30))
     expect(rss).not.toContain('test-planlanmis')
     expect(rss).not.toContain('test-taslak')
   })
@@ -91,7 +94,8 @@ describe('post page', () => {
 describe('category page', () => {
   const page = readPage('/blog/kategori/isletmeler-icin')
   it('lists only that category', () => {
-    expect(page.querySelector('main a[href="/blog/antalya-web-sitesi-yaptirmak/"]')).not.toBeNull()
-    expect(page.querySelector('main a[href="/blog/lisans-sistemi-nedir/"]')).toBeNull()
+    const expected = livePosts().filter((p) => p.category === 'isletmeler-icin').slice(0, 9).map((p) => `/blog/${p.slug}/`)
+    expect(expected.length).toBeGreaterThan(0)
+    expect(postLinks(page.querySelector('main')!)).toEqual(expected)
   })
 })

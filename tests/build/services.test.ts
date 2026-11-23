@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { nodesOfType, readPage } from './helpers'
+import { livePosts, nodesOfType, postLinks, readPage } from './helpers'
 
 const SLUGS = ['web-tasarim', 'yazilim-gelistirme', 'mobil-uygulama', 'e-ticaret', 'siber-guvenlik']
 
@@ -33,8 +33,10 @@ describe('/hizmetler/web-tasarim', () => {
   it('renders its FAQ questions', () => {
     expect(page.text).toContain("Antalya'da bir web sitesi ne kadar sürede hazır olur?")
   })
-  it('links the related blog post', () => {
-    expect(page.querySelector('a[href="/blog/antalya-web-sitesi-yaptirmak/"]')).not.toBeNull()
+  it('shows its three newest related posts', () => {
+    const expected = livePosts().filter((p) => p.relatedServices.includes('web-tasarim')).slice(0, 3).map((p) => `/blog/${p.slug}/`)
+    expect(expected.length).toBeGreaterThan(0)
+    expect(postLinks(page.querySelector('section[aria-labelledby="ilgili-baslik"]')!)).toEqual(expected)
   })
   it('shows the email fallback instead of the form while the access key is empty', () => {
     expect(page.querySelector('form[action="https://api.web3forms.com/submit"]')).toBeNull()
