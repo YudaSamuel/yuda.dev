@@ -36,6 +36,7 @@ await cover('google-isletme-profili-nasil-acilir', 'Google İşletme Profili Nas
 await cover('bug-bounty-nedir', 'Bug Bounty Nedir? Philips ve chess.com Deneyimimiz', 'Geliştiriciler İçin')
 await cover('wordpress-hacklendi-mi', 'WordPress Siteniz Hacklendi mi?', 'İşletmeler İçin')
 await cover('otel-web-sitesi-dogrudan-rezervasyon', 'Otel Web Sitesinde Doğrudan Rezervasyon', 'İşletmeler İçin')
+await cover('iptv-nedir', 'IPTV Nedir, Nasıl Çalışır? Yasal mı?', 'İşletmeler İçin')
 await cover('test-planlanmis', 'Planlanmış Test Yazısı', 'Test')
 console.log('images done')
 
