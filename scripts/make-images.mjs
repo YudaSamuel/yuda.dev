@@ -37,6 +37,7 @@ await cover('bug-bounty-nedir', 'Bug Bounty Nedir? Philips ve chess.com Deneyimi
 await cover('wordpress-hacklendi-mi', 'WordPress Siteniz Hacklendi mi?', 'İşletmeler İçin')
 await cover('otel-web-sitesi-dogrudan-rezervasyon', 'Otel Web Sitesinde Doğrudan Rezervasyon', 'İşletmeler İçin')
 await cover('iptv-nedir', 'IPTV Nedir, Nasıl Çalışır? Yasal mı?', 'İşletmeler İçin')
+await cover('yuda-ne-demek', 'Yuda Ne Demek? Yüda İsminin Anlamı', 'İşletmeler İçin')
 await cover('test-planlanmis', 'Planlanmış Test Yazısı', 'Test')
 console.log('images done')
 

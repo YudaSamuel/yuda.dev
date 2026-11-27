@@ -60,23 +60,20 @@ describe('/iletisim/tesekkurler (no-JS form success)', () => {
   })
 })
 
-describe('/hakkimizda "Yuda ne demek?" section', () => {
-  const page = readPage('/hakkimizda')
-  it('has an h2 answering the name question, mentioning the "Yüda" spelling', () => {
-    const h2 = page.querySelectorAll('h2').find((h) => h.text.includes('Yuda ne demek'))
-    expect(h2).toBeDefined()
-    const section = page.querySelector('#yuda-ne-demek')!
-    expect(section.text).toContain('Yüda')
-    expect(section.text).toContain('övgü')
+describe('"Yuda ne demek?" lives in the blog, not on /hakkimizda', () => {
+  const post = readPage('/blog/yuda-ne-demek')
+  const about = readPage('/hakkimizda')
+  it('the post answers the question in its h1 and first paragraph, citing sources', () => {
+    expect(post.querySelector('h1')!.text).toContain('Yuda Ne Demek')
+    const body = post.querySelector('article') ?? post
+    expect(body.text).toContain('Yüda')
+    expect(body.text).toContain('övgü')
+    expect(body.querySelectorAll('a[href^="https://"]').length).toBeGreaterThanOrEqual(2)
   })
-  it('cites external sources for the meaning', () => {
-    expect(page.querySelectorAll('#yuda-ne-demek a[href^="https://"]').length).toBeGreaterThanOrEqual(2)
-  })
-  it('marks the questions up as FAQPage', () => {
-    const faq = nodesOfType(page, 'FAQPage')
-    expect(faq).toHaveLength(1)
-    const names = [].concat(faq[0].mainEntity).map((q: any) => q.name)
-    expect(names).toContain('Yuda ne demek?')
+  it('/hakkimizda only summarises and links the post, without competing FAQ markup', () => {
+    expect(about.querySelectorAll('#yuda-ne-demek a').map((a) => a.getAttribute('href'))).toContain('/blog/yuda-ne-demek/')
+    expect(about.querySelectorAll('h2').some((h) => h.text.includes('Yuda ne demek'))).toBe(false)
+    expect(nodesOfType(about, 'FAQPage')).toHaveLength(0)
   })
 })
 
