@@ -60,6 +60,26 @@ describe('/iletisim/tesekkurler (no-JS form success)', () => {
   })
 })
 
+describe('/hakkimizda "Yuda ne demek?" section', () => {
+  const page = readPage('/hakkimizda')
+  it('has an h2 answering the name question, mentioning the "Yüda" spelling', () => {
+    const h2 = page.querySelectorAll('h2').find((h) => h.text.includes('Yuda ne demek'))
+    expect(h2).toBeDefined()
+    const section = page.querySelector('#yuda-ne-demek')!
+    expect(section.text).toContain('Yüda')
+    expect(section.text).toContain('övgü')
+  })
+  it('cites external sources for the meaning', () => {
+    expect(page.querySelectorAll('#yuda-ne-demek a[href^="https://"]').length).toBeGreaterThanOrEqual(2)
+  })
+  it('marks the questions up as FAQPage', () => {
+    const faq = nodesOfType(page, 'FAQPage')
+    expect(faq).toHaveLength(1)
+    const names = [].concat(faq[0].mainEntity).map((q: any) => q.name)
+    expect(names).toContain('Yuda ne demek?')
+  })
+})
+
 describe('/hakkimizda', () => {
   it('emits AboutPage', () => {
     const page = readPage('/hakkimizda')
